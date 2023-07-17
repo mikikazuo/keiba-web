@@ -38,3 +38,9 @@ next-env.d.ts
 
 # misc
 .vscode
+
+keiba-web-firebase-adminsdk-8vjss-815ad217e5.json
+
+**/.firebase
+**/.firebaserc
+**/firebase-debug.log
