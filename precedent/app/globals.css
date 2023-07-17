@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
+.btn {
+  @apply rounded-full bg-lime-700 px-4 py-2 font-semibold text-white;
+}
+ .repeat {
+  grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+}
 @tailwind utilities;

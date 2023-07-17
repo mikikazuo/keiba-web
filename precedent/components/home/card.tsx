@@ -1,56 +1,72 @@
-import { ReactNode } from "react";
-import ReactMarkdown from "react-markdown";
-import Balancer from "react-wrap-balancer";
+// useStateを使う場合宣言必須
+"use client";
+import { IAnalysis } from "@/lib/getDb/analysis";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import "../../app/custom.css";
+import "../../app/neon.scss";
+import WebVitals from "./web-vitals";
 
-export default function Card({
-  title,
-  description,
-  demo,
-  large,
-}: {
-  title: string;
-  description: string;
-  demo: ReactNode;
-  large?: boolean;
-}) {
+export default function Card({ info }: { info: IAnalysis }) {
+  const [flip, setFlip] = useState(false);
+  const flipCard = () => setFlip(!flip);
   return (
-    <div
-      className={`relative col-span-1 h-96 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md ${
-        large ? "md:col-span-2" : ""
-      }`}
-    >
-      <div className="flex h-60 items-center justify-center">{demo}</div>
-      <div className="mx-auto max-w-md text-center">
-        <h2 className="bg-gradient-to-br from-black to-stone-500 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-normal">
-          <Balancer>{title}</Balancer>
-        </h2>
-        <div className="prose-sm -mt-2 leading-normal text-gray-500 md:prose">
-          <Balancer>
-            <ReactMarkdown
-              components={{
-                a: ({ node, ...props }) => (
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    {...props}
-                    className="font-medium text-gray-800 underline transition-colors"
-                  />
-                ),
-                code: ({ node, ...props }) => (
-                  <code
-                    {...props}
-                    // @ts-ignore (to fix "Received `true` for a non-boolean attribute `inline`." warning)
-                    inline="true"
-                    className="rounded-sm bg-gray-100 px-1 py-0.5 font-mono font-medium text-gray-800"
-                  />
-                ),
-              }}
-            >
-              {description}
-            </ReactMarkdown>
-          </Balancer>
+    <motion.div whileHover={{ scale: [1, 1.2, 1.15], zIndex: 1 }} transition={{ duration: 0.3 }} className={`flip-card ${flip != true ? "front-flip" : "back-flip"}`}>
+      <div className="flip-card-inner">
+        <div className="flip-card-front gas he">
+          <button onClick={flipCard}>
+            <div className={`h-[10.5rem] col-span-1 overflow-hidden rounded-xl gas he`}>
+              <div className="flex justify-between">
+                <div className="grid w-40 items-center text-center">
+                  <h2 className="mb-2 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
+                    {info.buy_type}
+                  </h2>
+                  <ul className="prose-base -mt-2 leading-normal text-white">
+                    <li className="text-2xl">{`${info.popularity}${info.popularity.length < 9 ? "番人気" : ""}`}</li>
+                    <li className="text-sm">{`回収額： ${info.payback}円`}</li>
+                    <li className="text-sm">{`MVP： ${info.payback_mvp}円`}</li>
+                  </ul>
+                </div>
+                <div>
+                  <WebVitals
+                    title="回収率"
+                    color="text-green-500"
+                    ratio={info.payback / info.whole_cnt / 100}
+                  ></WebVitals>
+                </div>
+              </div>
+            </div>
+            <div className="my-2 font-bold text-white">{` ${info.cnt} レース / 全 ${info.whole_cnt} レース中`}</div>
+          </button>
+        </div>
+        <div className="flip-card-back gas pu">
+          <button onClick={flipCard}>
+            <div className={`h-[10.5rem] col-span-1 overflow-hidden rounded-xl gas pu`}            >
+              <div className="flex justify-between">
+                <div className="grid w-40 items-center text-center ">
+                  <h2 className="mb-2 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
+                    {info.buy_type}
+                  </h2>
+                  <ul className="prose-sm -mt-2 leading-normal text-white">
+                    <li className="text-base">{`～ MVPレース ～`}</li>
+                    <li>{`${info.date}`}</li>
+                    <li>{`${info.place}`}</li>
+                    <li>{`${info.round}R ${info.name}`}</li>
+                  </ul>
+                </div>
+                <div>
+                  <WebVitals
+                    title="勝率"
+                    color="text-purple-500"
+                    ratio={info.cnt / info.whole_cnt}
+                  ></WebVitals>
+                </div>
+              </div>
+            </div>
+            <div className="my-2 font-bold text-white">{`${info.cnt} レース / 全 ${info.whole_cnt} レース中`}</div>
+          </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

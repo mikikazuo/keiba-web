@@ -8,6 +8,18 @@ module.exports = {
   },
   theme: {
     extend: {
+      colors: {
+        cyan: "#9cdbff",
+      },
+      maxWidth: {
+        custom: "160rem",
+      },
+      spacing: {
+        76: "19rem",
+      },
+      fontSize: {
+        xxs: ["0.625em", { lineHeight: "1rem" }],
+      },
       fontFamily: {
         display: ["var(--font-sf)", "system-ui", "sans-serif"],
         default: ["var(--font-inter)", "system-ui", "sans-serif"],

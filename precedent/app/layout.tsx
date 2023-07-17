@@ -1,36 +1,127 @@
-import "./globals.css";
-import { Analytics } from "@vercel/analytics/react";
 import cx from "classnames";
-import { sfPro, inter } from "./fonts";
+import { inter, sfPro } from "./fonts";
+import "./globals.css";
 //import Nav from "@/components/layout/nav";
-import Footer from "@/components/layout/footer";
+import Image from "next/image";
 import { Suspense } from "react";
+import "./darkforce.scss";
 
 export const metadata = {
-  title: "Precedent - Building blocks for your Next.js project",
-  description:
-    "Precedent is the all-in-one solution for your Next.js project. It includes a design system, authentication, analytics, and more.",
+  title: "逆張り星人",
+  description: "最新の人気ベースの最大回収率がまるわかり！\n毎週更新！",
   twitter: {
     card: "summary_large_image",
-    title: "Precedent - Building blocks for your Next.js project",
-    description:
-      "Precedent is the all-in-one solution for your Next.js project. It includes a design system, authentication, analytics, and more.",
-    creator: "@steventey",
+    title: "逆張り星人",
+    description: "最新の人気ベースの最大回収率がまるわかり！\n毎週更新！",
   },
-  metadataBase: new URL("https://precedent.dev"),
+  // metadataBase: new URL("https://precedent.dev"),
   themeColor: "#FFF",
 };
 
-export default async function RootLayout({ children,}: { children: React.ReactNode;}) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const sample = (id: string) => (
+    <div id={id} className="h-full w-full">
+      <Image
+        src="/spaceback.png"
+        alt=""
+        width={500}
+        height={500}
+        priority={true}
+      />
+    </div>
+  );
   return (
     <html lang="en">
       <body className={cx(sfPro.variable, inter.variable)}>
-        <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100" />
+        <div className="opacity-50">
+          <div className="fixed top-0 w-[500px]">
+            <Image
+              src="/spaceback.png"
+              alt=""
+              width={500}
+              height={500}
+              priority={true}
+            />
+          </div>
+          <div className="fixed left-[500px] top-0 w-[500px]">
+            <Image
+              src="/spaceback.png"
+              alt=""
+              width={500}
+              height={500}
+              priority={true}
+            />
+          </div>
+          <div className="fixed left-[1000px] top-0 w-[500px]">
+            <Image
+              src="/spaceback.png"
+              alt=""
+              width={500}
+              height={500}
+              priority={true}
+            />
+          </div>
+          <div className="fixed left-[1500px] top-0 w-[500px]">
+            <Image
+              src="/spaceback.png"
+              alt=""
+              width={500}
+              height={500}
+              priority={true}
+            />
+          </div>
+          <div className="fixed bottom-0 w-[500px]">
+            <Image
+              src="/spaceback.png"
+              alt=""
+              width={500}
+              height={500}
+              priority={true}
+            />
+          </div>
+          <div className="fixed bottom-0 left-[500px] w-[500px]">
+            <Image
+              src="/spaceback.png"
+              alt=""
+              width={500}
+              height={500}
+              priority={true}
+            />
+          </div>
+          <div className="fixed bottom-0 left-[1000px] w-[500px]">
+            <Image
+              src="/spaceback.png"
+              alt=""
+              width={500}
+              height={500}
+              priority={true}
+            />
+          </div>
+          <div className="fixed bottom-0 left-[1500px] w-[500px]">
+            <Image
+              src="/spaceback.png"
+              alt=""
+              width={500}
+              height={500}
+              priority={true}
+            />
+          </div>
+        </div>
+        <div className="divSample">
+          {[...Array(6).keys()].map((x) => sample("d" + (x + 1)))}
+        </div>
+
+        {/* <div className="to-cyan-100 fixed h-screen w-full bg-gradient-to-br from-green-100 to-green-200 via-white" /> */}
+        <div className="to-cyan-100 fixed h-screen w-full" />
         <Suspense fallback="...">
           {/* @ ts-expect-error Server Component */}
           {/* <Nav /> */}
         </Suspense>
-        <main className="flex w-full flex-col items-center justify-center py-20">
+        <main className="flex w-full flex-col items-center justify-center py-10">
           {children}
         </main>
         {/* <Footer /> */}
