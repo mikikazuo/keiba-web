@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+/*
+Theme Name: CSS3 DarkForce
+Author: ONZE - Issei Hara
+Author URI: http://on-ze.com
+Version: 1.0
+License: GNU General Public License
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+/******************/
+
+body {
+  background: #000000 !important;
+}
+
+$layerNum: 7;
+$spaceTime: 2;
+@for $i from 1 through $layerNum {
+  #d#{$i} {
+    $maxTime: ($layerNum - 1) * $spaceTime;
+    -webkit-animation: #{$maxTime}s warp linear infinite;
+    -moz-animation: #{$maxTime}s warp linear infinite;
+    -ms-animation: #{$maxTime}s warp linear infinite;
+    -o-animation: #{$maxTime}s warp linear infinite;
+    animation: #{$maxTime}s warp linear infinite;
+    visibility: visible;
+    position: fixed;
+  }
+}
+
+@for $i from 1 through $layerNum {
+  #d#{$i} {
+    $second: -#{($i - 1) * $spaceTime}s;
+    -webkit-animation-delay: $second;
+    -moz-animation-delay: $second;
+    -ms-animation-delay: $second;
+    -o-animation-delay: $second;
+    animation-delay: $second;
+  }
+}
+
+/******************/
+
+@-webkit-keyframes warp {
+  from {
+    opacity: 0.2;
+    transform: rotate(-60deg) translateZ(292px);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: rotate(60deg) translateZ(300px);
+  }
+}
+
+@-moz-keyframes warp {
+  from {
+    opacity: 0.2;
+    transform: rotate(-60deg) translateZ(292px);
+  }
+
+  to {
+    opacity: 1;
+    -moz-transform: rotate(60deg) translateZ(300px);
+  }
+}
+
+@-ms-keyframes warp {
+  from {
+    opacity: 0.2;
+    transform: rotate(-60deg) translateZ(292px);
+  }
+
+  to {
+    opacity: 0.5;
+    -ms-transform: rotate(60deg) translateZ(300px);
+  }
+}
+
+@-o-keyframes warp {
+  from {
+    opacity: 0.2;
+    transform: rotate(-60deg) translateZ(292px);
+  }
+
+  to {
+    opacity: 1;
+    -o-transform: rotate(60deg) translateZ(300px);
+  }
+}
+
+@keyframes warp {
+  from {
+    opacity: 0.2;
+    transform: rotate(-60deg) translateZ(292px);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(60deg) translateZ(300px);
+  }
+}
+
+/******************/
+/******************/
+
+.divSample {
+  width: 10px;
+  height: 10px;
+  perspective: 300;
+  -webkit-perspective: 300;
+  -moz-perspective: 300;
+  -ms-perspective: 300;
+  -o-perspective: 300;
+
+  position: fixed;
+  bottom: 70lvh;
+  left: 50lvw;
+}
