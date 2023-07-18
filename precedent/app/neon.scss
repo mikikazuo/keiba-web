@@ -1,0 +1,220 @@
+/* 
+  Font: "Neon Glow" by weknow 
+  (https://www.fontspace.com/neon-glow-font-f14014) 
+*/
+@font-face {
+  font-family: "Neon Glow";
+  src: url(https://assets.codepen.io/230569/NeonGlow-8VLz.ttf);
+}
+
+* {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+#gasses {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  > * {
+    margin: 2rem;
+  }
+}
+
+.gas {
+  --blur: 1.75rem;
+  --box-blur: calc(0.5 * var(--blur));
+  --glow: var(--color);
+
+  align-items: center;
+  border-radius: 12px;
+  border: 2px solid currentColor;
+  box-shadow: 
+    /* --- "glass" tube --- */
+    /* inside */ inset 0 0 0 2px
+      rgba(0, 0, 0, 0.15),
+    /* outside */ 0 0 0 2px rgba(0, 0, 0, 0.15),
+    /* --- glow --- */ /* inside */ inset 0 0 var(--box-blur) var(--glow),
+    /* outside */ 0 0 var(--box-blur) var(--glow);
+  color: var(--color, white);
+  background-color: rgba(0, 255, 0, 0.185);
+  /* display: inline-flex; */
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, sans-serif;
+
+  justify-content: space-around;
+
+  > * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .number {
+    font-weight: 700;
+  }
+
+  .symbol {
+    font-size: 4rem;
+    font-family: "Neon Glow";
+    text-shadow: 0 0 var(--blur) var(--glow);
+  }
+
+  &.he {
+    --color: #baffa5;
+    filter: saturate(135%);
+    background-color: rgba(0, 255, 0, 0.185);
+  }
+  &.pu {
+    --color: #d9abff;
+    filter: saturate(175%);
+    background-color: rgba(255, 0, 255, 0.199);
+  }
+  &.ne {
+    --color: #fda802;
+    filter: brightness(110%);
+  }
+  &.ar {
+    --color: #e555c7;
+    filter: brightness(125%);
+  }
+  &.kr {
+    --color: #b7e7f7;
+    filter: saturate(200%);
+  }
+  &.xe {
+    --color: #c4c4c6;
+    filter: brightness(255%);
+    background-color: rgba(255, 255, 255, 0.199);
+  }
+}
+
+.gas-circle {
+  --blur: 1.75rem;
+  --box-blur: calc(0.5 * var(--blur));
+  --glow: var(--color);
+
+  align-items: center;
+  border-radius: 100px;
+  border: 2px solid currentColor;
+
+  box-shadow: 
+    /* --- "glass" tube --- */
+    /* inside */ inset 0 0 0 2px
+      rgba(0, 0, 0, 0.15),
+    /* outside */ 0 0 0 2px rgba(0, 0, 0, 0.15),
+    /* --- glow --- */ /* inside */ inset 0 0 var(--box-blur) var(--glow),
+    /* outside */ 0 0 var(--box-blur) var(--glow);
+  color: var(--color, white);
+  background-color: rgba(0, 255, 0, 0.185);
+  /* display: inline-flex; */
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, sans-serif;
+
+  justify-content: space-around;
+
+  > * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .number {
+    font-weight: 700;
+  }
+
+  .symbol {
+    font-size: 4rem;
+    font-family: "Neon Glow";
+    text-shadow: 0 0 var(--blur) var(--glow);
+  }
+
+  &.he {
+    --color: #baffa5;
+    filter: saturate(175%);
+  }
+  &.ne {
+    --color: #fda802;
+    filter: brightness(110%);
+  }
+  &.ar {
+    --color: #e555c7;
+    filter: brightness(125%);
+  }
+  &.kr {
+    --color: #b7e7f7;
+    filter: saturate(200%);
+  }
+  &.xe {
+    --color: #c4c4c6;
+    filter: brightness(105%);
+  }
+}
+
+// タイトルノイズ
+
+.title {
+  overflow: hidden;
+  display: flex;
+  font-family: "Barlow", sans-serif;
+  justify-content: center;
+  align-items: center;
+}
+
+.glitch {
+  position: relative;
+  color: #fff;
+}
+
+.line {
+  user-select: none;
+  &:not(:first-child) {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  @for $i from 1 through 11 {
+    &:nth-child(#{$i}) {
+      animation: clip 3000ms $i * -300ms linear infinite,
+        glitch#{$i} 500ms random(1000) * -1ms linear infinite;
+
+      @keyframes glitch#{$i} {
+        0% {
+          transform: translateX(0);
+        }
+        80% {
+          transform: translateX(0);
+          // color: #fff;
+        }
+        85% {
+          transform: translateX(random(10) - 5px);
+          // color: #4E9A26;
+        }
+        90% {
+          transform: translateX(random(10) - 5px);
+          // color: #AC1212;
+        }
+        95% {
+          transform: translateX(random(10) - 5px);
+          // color: #fff;
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+}
+
+@keyframes clip {
+  0% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 120%, 0 120%);
+  }
+
+  100% {
+    clip-path: polygon(0 -20%, 100% -20%, 100% 0%, 0 0);
+  }
+}
