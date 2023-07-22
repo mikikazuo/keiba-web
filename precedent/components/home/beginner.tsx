@@ -1,21 +1,30 @@
 "use client";
 import Card from "@/components/home/beginner-card";
-import { IAnalysis } from '@/lib/getDb/analysis';
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useRef, useState } from 'react';
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useRef, useState } from "react";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 export default function Example() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const cancelButtonRef = useRef(null)
+  const cancelButtonRef = useRef(null);
   return (
     <>
       <ul className="menu">
-        <li className="dark"><a href="#" onClick={() => setOpen(true)}><i className="icon-beginner"></i><span>表示の説明</span></a></li>
+        <li className="dark">
+          <a href="#" onClick={() => setOpen(true)}>
+            <i className="icon-beginner"></i>
+            <span>表示の説明</span>
+          </a>
+        </li>
       </ul>
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          initialFocus={cancelButtonRef}
+          onClose={setOpen}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -43,11 +52,14 @@ export default function Example() {
                   <div className="bg-gray-700 px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="">
                       <div className="mt-3 text-center">
-                        <Dialog.Title as="h3" className="font-semibold leading-6 text-white text-base md:text-xl">
+                        <Dialog.Title
+                          as="h3"
+                          className="font-semibold leading-6 text-white text-base md:text-xl"
+                        >
                           表示の説明（下をクリック もしくは タップ）
                         </Dialog.Title>
                         <div className="my-8 items-center">
-                            <Card/>
+                          <Card />
                         </div>
                       </div>
                     </div>
@@ -68,5 +80,5 @@ export default function Example() {
         </Dialog>
       </Transition.Root>
     </>
-  )
+  );
 }

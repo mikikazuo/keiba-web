@@ -1,9 +1,8 @@
+import Beginner from "@/components/home/beginner";
 import Card from "@/components/home/card";
 import { Twitter } from "@/components/shared/icons";
 import { getAnalysis, getUpdateDate } from "@/lib/getDb/analysis";
 import Balancer from "react-wrap-balancer";
-import Beginner from "@/components/home/beginner";
-import { Link } from "lucide-react";
 
 export default async function Home() {
   const _updateDate = getUpdateDate("week");
@@ -58,7 +57,7 @@ export default async function Home() {
         >
           <Beginner />
           <a
-            href="https://twitter.com/intent/tweet?text=～逆張り星人～%0a最新の人気ベースの最大回収率がまるわかり！%0a&hashtags=逆張り星人&url=reversekeiba.com"
+            href="https://twitter.com/intent/tweet?text=～逆張り星人～%0a最新の人気ベースの最大回収率がまるわかり！%0a毎週更新%0a&hashtags=逆張り星人&url=reversekeiba.com"
             target="_blank"
             rel="noreferrer"
             className="tweet-btn my-auto flex space-x-2 overflow-hidden rounded-full bg-blue-100 px-7 py-3 transition-colors hover:bg-blue-200"
@@ -90,9 +89,14 @@ export default async function Home() {
           <Card key={info.buy_type} info={info} />
         ))}
       </div>
-      <div className="text-white">
-        {" "}
-        ©<a href="https://twitter.com/hoge512">hoge512</a> 2023
+      <div
+        className="animate-fade-up text-center opacity-0 md:text-xl text-white"
+        style={{ animationFillMode: "forwards" }}
+      >
+        ©2023{" "}
+        <a className="text-blue-300" href="https://twitter.com/hoge512">
+          @hoge512
+        </a>
       </div>
     </>
   );
