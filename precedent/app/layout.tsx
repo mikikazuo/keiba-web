@@ -2,17 +2,19 @@ import cx from "classnames";
 import { inter, sfPro } from "./fonts";
 import "./globals.css";
 //import Nav from "@/components/layout/nav";
+import GoogleAnalytics from "@/lib/googleAnalytics/GaScript";
 import Image from "next/image";
 import { Suspense } from "react";
 import "./darkforce.scss";
-import GoogleAnalytics from "@/lib/googleAnalytics/GaScript";
 export const metadata = {
   title: "逆張り星人",
-  description: "最新の人気ベースの最大回収率がまるわかり！\n毎週更新",
+  description:
+    "最新の人気ベースの最大回収率がまるわかりっぽ！\n毎週月曜更新だぽ",
   twitter: {
     card: "summary_large_image",
     title: "逆張り星人",
-    description: "最新の人気ベースの最大回収率がまるわかり！\n毎週更新",
+    description:
+      "最新の人気ベースの最大回収率がまるわかりっぽ！\n毎週月曜更新だぽ",
   },
   // metadataBase: new URL("https://precedent.dev"),
   themeColor: "#FFF",

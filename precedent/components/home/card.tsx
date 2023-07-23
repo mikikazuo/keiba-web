@@ -31,8 +31,12 @@ export default function Card({ info }: { info: IAnalysis }) {
                     <li className="text-2xl">{`${info.popularity}${
                       info.popularity.length < 9 ? "番人気" : ""
                     }`}</li>
-                    <li className="text-sm">{`回収額： ${info.payback}円`}</li>
-                    <li className="text-sm">{`MVP： ${info.payback_mvp}円`}</li>
+                    <div className="mx-auto text-sm grid grid-cols-2">
+                      <div className="text-right">回収額：</div>
+                      <div>{`${info.payback.toLocaleString()} 円`}</div>
+                      <div className="text-right">MVP：</div>
+                      <div>{`${info.payback_mvp.toLocaleString()} 円`}</div>
+                    </div>
                   </ul>
                 </div>
                 <div>

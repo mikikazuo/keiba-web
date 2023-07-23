@@ -44,11 +44,11 @@ export default async function Home() {
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
           <Balancer>
-            最新の人気ベースの最大回収率がまるわかり<br></br>
-            指定人気で買い続けた場合をシミュレーション<br></br>
-            中央競馬が対象<br></br>
+            最新の人気ベースの最大回収率がまるわかりっぽ！<br></br>
+            中央競馬で指定人気を買い続けた場合をシミュレーションするぽ～
             <br></br>
-            毎週月曜更新（{`${updateDate}更新`}）
+            <br></br>
+            毎週月曜更新だぽ（{`${updateDate}更新`}）
           </Balancer>
         </p>
         <div
@@ -57,7 +57,7 @@ export default async function Home() {
         >
           <Beginner />
           <a
-            href="https://twitter.com/intent/tweet?text=～逆張り星人～%0a最新の人気ベースの最大回収率がまるわかり！%0a毎週更新%0a&hashtags=逆張り星人&url=reversekeiba.com"
+            href="https://twitter.com/intent/tweet?text=こんにちぽ～、逆張り星人だぽ%0a最新の人気ベースの最大回収率がまるわかりっぽ！%0a毎週更新だぽ%0a&hashtags=逆張り星人&url=reversekeiba.com"
             target="_blank"
             rel="noreferrer"
             className="tweet-btn my-auto flex space-x-2 overflow-hidden rounded-full bg-blue-100 px-7 py-3 transition-colors hover:bg-blue-200"
@@ -94,8 +94,8 @@ export default async function Home() {
         style={{ animationFillMode: "forwards" }}
       >
         ©2023{" "}
-        <a className="text-blue-300" href="https://twitter.com/hoge512">
-          @hoge512
+        <a className="text-blue-300" href="https://twitter.com/reversekeiba">
+          逆張り星人
         </a>
       </div>
     </>
