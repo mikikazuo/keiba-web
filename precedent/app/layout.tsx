@@ -69,8 +69,7 @@ export default async function RootLayout({
         <main className="flex w-full flex-col items-center justify-center py-10">
           {children}
         </main>
-        {/* <Footer /> */}
-        {/* <Analytics /> */}
+        <Footer />
       </body>
     </html>
   );
