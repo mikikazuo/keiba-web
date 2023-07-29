@@ -33,11 +33,6 @@ export default async function Home() {
             <div className="line">逆張り星人</div>
             <div className="line">逆張り星人</div>
             <div className="line">逆張り星人</div>
-            <div className="line">逆張り星人</div>
-            <div className="line">逆張り星人</div>
-            <div className="line">逆張り星人</div>
-            <div className="line">逆張り星人</div>
-            <div className="line">逆張り星人</div>
           </h1>
         </div>
         <p
