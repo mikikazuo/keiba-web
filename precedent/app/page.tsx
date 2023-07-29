@@ -4,6 +4,7 @@ import { Twitter } from "@/components/shared/icons";
 import { getAnalysis, getUpdateDate } from "@/lib/getDb/analysis";
 import Balancer from "react-wrap-balancer";
 
+export const revalidate = 0; // revalidate this page every 60 seconds
 export default async function Home() {
   const _updateDate = getUpdateDate("week");
   const _analysisWeek = getAnalysis("week");

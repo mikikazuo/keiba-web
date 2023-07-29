@@ -1,11 +1,12 @@
 const { BigQuery } = require("@google-cloud/bigquery");
+import { cache } from "react";
 
-export async function getUpdateDate(tableId: string) {
+export const getUpdateDate = cache(async (tableId: string) => {
   const bigqueryClient = new BigQuery().dataset("analysis");
   const sqlQuery = `SELECT
   FORMAT_TIMESTAMP('%m月%d日%H時', TIMESTAMP_MILLIS(last_modified_time), 'Asia/Tokyo')
   FROM \`keiba-web-forgcf.analysis.__TABLES__\`
-  WHERE table_id='${tableId}'`
+  WHERE table_id='${tableId}'`;
 
   const options = {
     query: sqlQuery,
@@ -13,8 +14,8 @@ export async function getUpdateDate(tableId: string) {
   };
 
   const [[date]] = await bigqueryClient.query(options);
-  return date['f0_'];
-}
+  return date["f0_"];
+});
 
 export interface IAnalysis {
   buy_type: string;
@@ -44,7 +45,7 @@ const cardOrder = [
   "三連単",
 ];
 
-export async function getAnalysis(tableId: string) {
+export const getAnalysis = cache(async (tableId: string) => {
   // const [rows]: IAnalysis[][] = [[
   //   {
   //     buy_type: '馬連',
@@ -177,6 +178,10 @@ export async function getAnalysis(tableId: string) {
 
   const [rows]: IAnalysis[][] = await bigqueryClient.query(options);
 
-  rows.sort((a, b) => cardOrder.indexOf(a["buy_type"]) < cardOrder.indexOf(b["buy_type"]) ? -1 : 1);
+  rows.sort((a, b) =>
+    cardOrder.indexOf(a["buy_type"]) < cardOrder.indexOf(b["buy_type"])
+      ? -1
+      : 1,
+  );
   return rows;
-}
+});
