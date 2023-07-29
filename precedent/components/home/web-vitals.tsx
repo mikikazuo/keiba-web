@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import CountingNumbers from "@/components/shared/counting-numbers";
+import { motion } from "framer-motion";
 
 export default function WebVitals({
   title,
@@ -35,7 +35,10 @@ export default function WebVitals({
         value={ratio * 100}
         decimal={color.match("green") ? 1 : 100}
         duration={2500}
-        className={"absolute inset-0 top-2 mx-auto flex items-center justify-center font-display text-3xl " + color}
+        className={
+          "absolute inset-0 top-2 mx-auto flex items-center justify-center font-display text-3xl " +
+          color
+        }
       />
       <div className={"absolute left-[3.9rem] top-[5.5rem] text-xl  " + color}>
         %

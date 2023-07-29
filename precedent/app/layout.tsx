@@ -2,21 +2,23 @@ import cx from "classnames";
 import { inter, sfPro } from "./fonts";
 import "./globals.css";
 //import Nav from "@/components/layout/nav";
+import Footer from "@/components/layout/footer";
 import GoogleAnalytics from "@/lib/googleAnalytics/GaScript";
 import Image from "next/image";
 import { Suspense } from "react";
 import "./darkforce.scss";
+import "./neon.scss";
+
 export const metadata = {
   title: "逆張り星人",
   description:
-    "最新の人気ベースの最大回収率がまるわかりっぽ！\n毎週月曜更新だぽ",
+    "競馬分析攻略ー最新の人気ベースの最大回収率がまるわかりっぽ！毎週更新だぽ",
   twitter: {
     card: "summary_large_image",
     title: "逆張り星人",
-    description:
-      "最新の人気ベースの最大回収率がまるわかりっぽ！\n毎週月曜更新だぽ",
+    description: "最新の人気ベースの最大回収率がまるわかりっぽ！毎週更新だぽ",
+    creator: "@reversekeiba",
   },
-  // metadataBase: new URL("https://precedent.dev"),
   themeColor: "#FFF",
 };
 
@@ -25,15 +27,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const img = (
-    <Image
-      src="/spaceback.png"
-      alt=""
-      width={500}
-      height={500}
-      priority={true}
-    />
-  );
+  const img = <Image src="/spaceback.png" alt="" width={500} height={500} />;
 
   const sample = (id: string) => (
     <div id={id} className="h-full w-full">
@@ -41,7 +35,6 @@ export default async function RootLayout({
     </div>
   );
 
-  const ANALYTICS_ID = process.env.NEXT_PUBLIC_ANALYTICS_ID;
   return (
     <html lang="en">
       <body className={cx(sfPro.variable, inter.variable)}>
@@ -54,7 +47,7 @@ export default async function RootLayout({
           <div className="fixed bottom-0 w-[500px]">{img}</div>
           <div className="fixed bottom-0 left-[500px] w-[500px]">{img}</div>
           <div className="fixed bottom-0 left-[1000px] w-[500px]">{img}</div>
-          <div className="fixed bottom-0 left-[1500px] w-[500px]">{img}</div>
+          <div className="lPeft-[1500px] fixed bottom-0 w-[500px]">{img}</div>
         </div>
         <div className="divSample">
           {[...Array(6).keys()].map((x) => sample("d" + (x + 1)))}

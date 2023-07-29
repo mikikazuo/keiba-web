@@ -2,16 +2,6 @@
   Font: "Neon Glow" by weknow 
   (https://www.fontspace.com/neon-glow-font-f14014) 
 */
-@font-face {
-  font-family: "Neon Glow";
-  src: url(https://assets.codepen.io/230569/NeonGlow-8VLz.ttf);
-}
-
-* {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-}
 
 #gasses {
   display: flex;
@@ -33,8 +23,8 @@
   border: 2px solid currentColor;
   box-shadow: 
     /* --- "glass" tube --- */
-    /* inside */ inset 0 0 0 2px
-      rgba(0, 0, 0, 0.15),
+    /* inside */
+    inset 0 0 0 2px rgba(0, 0, 0, 0.15),
     /* outside */ 0 0 0 2px rgba(0, 0, 0, 0.15),
     /* --- glow --- */ /* inside */ inset 0 0 var(--box-blur) var(--glow),
     /* outside */ 0 0 var(--box-blur) var(--glow);
@@ -102,8 +92,8 @@
 
   box-shadow: 
     /* --- "glass" tube --- */
-    /* inside */ inset 0 0 0 2px
-      rgba(0, 0, 0, 0.15),
+    /* inside */
+    inset 0 0 0 2px rgba(0, 0, 0, 0.15),
     /* outside */ 0 0 0 2px rgba(0, 0, 0, 0.15),
     /* --- glow --- */ /* inside */ inset 0 0 var(--box-blur) var(--glow),
     /* outside */ 0 0 var(--box-blur) var(--glow);

@@ -4,7 +4,6 @@ import { IAnalysis } from "@/lib/getDb/analysis";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import "../../app/custom.css";
-import "../../app/neon.scss";
 import WebVitals from "./web-vitals";
 
 export default function Card({ info }: { info: IAnalysis }) {
@@ -20,7 +19,7 @@ export default function Card({ info }: { info: IAnalysis }) {
         <div className="flip-card-front gas he">
           <button onClick={flipCard}>
             <div
-              className={`h-[10.5rem] col-span-1 overflow-hidden rounded-xl gas he`}
+              className={`gas he col-span-1 h-[10.5rem] overflow-hidden rounded-xl`}
             >
               <div className="flex justify-between">
                 <div className="grid w-40 items-center text-center">
@@ -31,7 +30,7 @@ export default function Card({ info }: { info: IAnalysis }) {
                     <li className="text-2xl">{`${info.popularity}${
                       info.popularity.length < 9 ? "番人気" : ""
                     }`}</li>
-                    <div className="mx-auto text-sm grid grid-cols-2">
+                    <div className="mx-auto grid grid-cols-2 text-sm">
                       <div className="text-right">回収額：</div>
                       <div>{`${info.payback.toLocaleString()} 円`}</div>
                       <div className="text-right">MVP：</div>
@@ -54,10 +53,10 @@ export default function Card({ info }: { info: IAnalysis }) {
         <div className="flip-card-back gas pu">
           <button onClick={flipCard}>
             <div
-              className={`h-[10.5rem] col-span-1 overflow-hidden rounded-xl gas pu`}
+              className={`gas pu col-span-1 h-[10.5rem] overflow-hidden rounded-xl`}
             >
               <div className="flex justify-between">
-                <div className="grid w-40 items-center text-center ">
+                <div className="grid w-40 items-center text-center">
                   <h2 className="mb-2 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
                     {info.buy_type}
                   </h2>

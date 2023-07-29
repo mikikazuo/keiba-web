@@ -16,7 +16,7 @@ export default async function Home() {
   ]);
   return (
     <>
-      <div className="m z-10 w-full max-w-xl">
+      <div className="z-10 w-full max-w-xl">
         <h2
           className="ml-5 animate-fade-up text-gray-300 opacity-0 md:text-xl"
           style={{ animationDelay: "0.1s", animationFillMode: "forwards" }}
@@ -41,7 +41,9 @@ export default async function Home() {
         >
           <Balancer>
             最新の人気ベースの最大回収率がまるわかりっぽ！<br></br>
-            中央競馬で指定人気を買い続けた場合をシミュレーションするぽ～
+            中央競馬で指定人気を買い続けた場合を
+            <br className="md:hidden" />
+            シミュレーションするぽ～
             <br></br>
             <br></br>
             毎週月曜更新だぽ（{`${updateDate}更新`}）
@@ -75,7 +77,7 @@ export default async function Home() {
         ))}
       </div>
       <h2
-        className="range-title gas xe mt-20 animate-fade-up text-center text-2xl font-bold"
+        className="range-title gas xe mt-20 animate-fade-up text-center text-2xl font-bold "
         style={{ animationFillMode: "forwards" }}
       >
         直近 １ヶ月
@@ -84,15 +86,6 @@ export default async function Home() {
         {analysisMonth.map((info) => (
           <Card key={info.buy_type} info={info} />
         ))}
-      </div>
-      <div
-        className="animate-fade-up text-center opacity-0 md:text-xl text-white"
-        style={{ animationFillMode: "forwards" }}
-      >
-        ©2023{" "}
-        <a className="text-blue-300" href="https://twitter.com/reversekeiba">
-          逆張り星人
-        </a>
       </div>
     </>
   );
