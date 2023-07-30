@@ -4,20 +4,21 @@ import "./globals.css";
 //import Nav from "@/components/layout/nav";
 import Footer from "@/components/layout/footer";
 import GoogleAnalytics from "@/lib/googleAnalytics/GaScript";
+import ShortcutIcon from "@/lib/shorcutIcon";
 import Image from "next/image";
 import { Suspense } from "react";
 import "./darkforce.scss";
 import "./neon.scss";
 
 export const metadata = {
-  title: "逆張り星人",
-  description:
-    "競馬分析攻略ー最新の人気ベースの最大回収率がまるわかりっぽ！毎週更新だぽ",
+  title: "逆張り星人 - 競馬分析攻略",
+  description: "最新の人気ベースの最大回収率がまるわかりっぽ！毎週更新だぽ",
   twitter: {
     card: "summary_large_image",
-    title: "逆張り星人",
+    title: "逆張り星人 - 競馬分析攻略",
     description: "最新の人気ベースの最大回収率がまるわかりっぽ！毎週更新だぽ",
     creator: "@reversekeiba",
+    images: ["https://reversekeiba.com/logo.png"],
   },
   themeColor: "#FFF",
 };
@@ -34,11 +35,11 @@ export default async function RootLayout({
       {img}
     </div>
   );
-
   return (
     <html lang="en">
       <body className={cx(sfPro.variable, inter.variable)}>
         <GoogleAnalytics />
+        <ShortcutIcon />
         <div className="opacity-50">
           <div className="fixed top-0 w-[500px]">{img}</div>
           <div className="fixed left-[500px] top-0 w-[500px]">{img}</div>

@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <div
-      className="animate-fade-up text-center text-white opacity-0 md:text-xl"
+      className="mb-10 animate-fade-up text-center text-white opacity-0 md:text-xl"
       style={{ animationFillMode: "forwards" }}
     >
       ©2023
