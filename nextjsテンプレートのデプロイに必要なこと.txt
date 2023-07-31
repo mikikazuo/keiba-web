@@ -1,0 +1,8 @@
+precedentフォルダのデプロイに必要なこと
+app\api\auth\[...nextauth]\route.tsの６行以下をコメントアウト
+app\sitemap.tsのuser関連のコメントアウト
+components\layout\nav.tsxの３行以下をコメントアウト
+prisma.tsのファイル名をprisma.tsenableにする
+env.exampleのファイル名を.envにする必要あり
+package.jsonのbuildコマンドのprismaコマンドを消す
+import prisma from "@/lib/prisma";のコメントアウト
