@@ -55,7 +55,7 @@ export default async function Home() {
         >
           <Beginner />
           <a
-            href="https://twitter.com/intent/tweet?text=こんにちぽ～、逆張り星人だぽ%0a最新の人気ベースの最大回収率がまるわかりっぽ！%0a毎週更新だぽ%0a&hashtags=逆張り星人&url=reversekeiba.com"
+            href="https://twitter.com/intent/tweet?text=ぽーぽぽっぽー、逆張り星人だぽ%0a最新の人気ベースの最大回収率がまるわかりっぽ！%0a毎週更新だぽ%0a&hashtags=逆張り星人&url=reversekeiba.com"
             target="_blank"
             rel="noreferrer"
             className="tweet-btn my-auto flex space-x-2 overflow-hidden rounded-full bg-blue-100 px-7 py-3 transition-colors hover:bg-blue-200"
@@ -76,7 +76,7 @@ export default async function Home() {
           <Card key={info.buy_type} info={info} />
         ))}
       </div>
-      <h2
+      {/* <h2
         className="range-title gas xe mt-20 animate-fade-up text-center text-2xl font-bold "
         style={{ animationFillMode: "forwards" }}
       >
@@ -86,7 +86,7 @@ export default async function Home() {
         {analysisMonth.map((info) => (
           <Card key={info.buy_type} info={info} />
         ))}
-      </div>
+      </div> */}
     </>
   );
 }

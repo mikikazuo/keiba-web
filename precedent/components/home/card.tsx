@@ -28,7 +28,12 @@ export default function Card({ info }: { info: IAnalysis }) {
                   </h2>
                   <ul className="prose-base -mt-2 leading-normal text-white">
                     <li className="text-2xl">{`${info.popularity}${
-                      info.popularity.length < 9 ? "番人気" : ""
+                      info.popularity.length < 9 &&
+                      !info.popularity.includes("→")
+                        ? "番人気"
+                        : info.popularity.length < 7 //馬単用の短縮
+                        ? "番人気"
+                        : ""
                     }`}</li>
                     <div className="mx-auto grid grid-cols-2 text-sm">
                       <div className="text-right">回収額：</div>
