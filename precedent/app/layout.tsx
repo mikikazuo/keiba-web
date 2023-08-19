@@ -16,7 +16,8 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "逆張り星人 - 競馬分析攻略",
-    description: "最新の人気ベースの最大回収率がまるわかりっぽ！毎週更新だぽ",
+    description:
+      "最新の人気ベースの最大回収率が無料でまるわかりっぽ！毎週更新だぽ",
     creator: "@reversekeiba",
     images: ["https://reversekeiba.com/logo.png"],
   },

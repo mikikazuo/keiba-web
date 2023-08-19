@@ -3,6 +3,7 @@ import Card from "@/components/home/card";
 import { Twitter } from "@/components/shared/icons";
 import { getAnalysis, getUpdateDate } from "@/lib/getDb/analysis";
 import Balancer from "react-wrap-balancer";
+import Image from "next/image";
 
 export const revalidate = 0; // revalidate this page every 60 seconds
 export default async function Home() {
@@ -46,7 +47,7 @@ export default async function Home() {
             シミュレーションするぽ～
             <br></br>
             <br></br>
-            毎週月曜更新だぽ（{`${updateDate}更新`}）
+            毎週更新だぽ（{`${updateDate}更新`}）
           </Balancer>
         </p>
         <div
@@ -55,7 +56,7 @@ export default async function Home() {
         >
           <Beginner />
           <a
-            href="https://twitter.com/intent/tweet?text=ぽーぽぽっぽー、逆張り星人だぽ%0a最新の人気ベースの最大回収率がまるわかりっぽ！%0a毎週更新だぽ%0a&hashtags=逆張り星人&url=reversekeiba.com"
+            href="https://twitter.com/intent/tweet?text=無料で最新の人気ベースの最大回収率がまるわかりっぽ！%0a毎週更新だぽ%0a&hashtags=逆張り星人&url=reversekeiba.com"
             target="_blank"
             rel="noreferrer"
             className="tweet-btn my-auto flex space-x-2 overflow-hidden rounded-full bg-blue-100 px-7 py-3 transition-colors hover:bg-blue-200"
@@ -76,6 +77,13 @@ export default async function Home() {
           <Card key={info.buy_type} info={info} />
         ))}
       </div>
+      <Image
+        className="mx-auto"
+        src="/favicons/android-chrome-192x192.png"
+        alt="logo"
+        width={96}
+        height={96}
+      />
       {/* <h2
         className="range-title gas xe mt-20 animate-fade-up text-center text-2xl font-bold "
         style={{ animationFillMode: "forwards" }}
