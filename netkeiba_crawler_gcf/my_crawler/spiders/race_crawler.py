@@ -10,7 +10,7 @@ class RaceCrawlerSpider(scrapy.Spider):
     name = "race_crawler"
     allowed_domains = ['db.netkeiba.com']
     # レースタブは最新情報だが、javascriptのため取得できないため、データベースタブから取得
-    base_url = "https://db.netkeiba.com/"
+    base_url = "https://db.netkeiba.com"
 
     # 直前の月曜日の日付を取得 (参考「https://www.nakakamado.com/2022/10/python-weekday.html」)
     week = [0, -1, -2, -3, -4, -5, -6]
@@ -18,7 +18,7 @@ class RaceCrawlerSpider(scrapy.Spider):
     dt_now = datetime.utcnow() + timedelta(hours=9)
     dt_now = dt_now + timedelta(week[dt_now.weekday()])
 
-    def __init__(self, dataset_no, past, *args, **kwargs):
+    def __init__(self, dataset_no='test', past=0, *args, **kwargs):
         """
         :param dataset_no: データセット名　週連番
         :param past: 何週前のデータをクロールするか。０なら直近１週間
@@ -32,7 +32,7 @@ class RaceCrawlerSpider(scrapy.Spider):
         target_month = list(set(map(lambda x: x.month, target_month)))
         for month in target_month:
             yield scrapy.Request(
-                url=f'{self.base_url}?pid=race_top&date={self.dt_now.year}{str(month).zfill(2)}',
+                url=f'{self.base_url}/?pid=race_top&date={self.dt_now.year}{str(month).zfill(2)}',
                 callback=self.parse)
 
     def parse(self, response):
@@ -75,7 +75,9 @@ class RaceCrawlerSpider(scrapy.Spider):
             'name': race_info[2].replace('ー', '-'),  # TODO ラベルで全角ハイフンが使えない　googleが対応するまでの一時的措置
             'order1': horse_row[0].xpath('td[4]/a/text()').get().replace('ー', '-'),
             'order2': horse_row[1].xpath('td[4]/a/text()').get().replace('ー', '-'),
-            'order3': horse_row[2].xpath('td[4]/a/text()').get().replace('ー', '-')
+            'order3': horse_row[2].xpath('td[4]/a/text()').get().replace('ー', '-'),
+            'max_order': max([int(num) for num in response.xpath(f'//tr/td[@nowrap="nowrap"][1]/text()').getall() if
+                              num.isdecimal()])
         }
         self.bq.create_table(table_name, schema, label)
 
@@ -83,8 +85,8 @@ class RaceCrawlerSpider(scrapy.Spider):
         umaban_popularity = {umaban: popularity for umaban, popularity in
                              zip(horse_rows.xpath('td[3]/text()').getall(),
                                  horse_rows.xpath('td[11]/span/text()').getall())}
-        buy_type_dict = {'tan': '単勝', 'fuku': '複勝', 'waku': '枠連', 'uren': '馬連', 'wide': 'ワイド', 'utan': '馬単',
-                         'sanfuku': '三連複', 'santan': '三連単'}
+        buy_type_dict = {'tan': '単勝', 'fuku': '複勝', 'waku': '枠連', 'uren': '馬連', 'wide': 'ワイド',
+                         'utan': '馬単', 'sanfuku': '三連複', 'santan': '三連単'}
         data_list = []
         for buy_type, buy_type_value in buy_type_dict.items():
             payback_datas = response.xpath(f'//th [@class="{buy_type}"]/following-sibling::td/text()').getall()
@@ -101,7 +103,7 @@ class RaceCrawlerSpider(scrapy.Spider):
                 popularity_list = []
                 mark = None
                 for umaban in words:
-                    if umaban.isdecimal():  # 記号の場合、置換スキップ
+                    if umaban.isdecimal():  # 記号の場合、人気番への置換スキップ
                         popularity_list.append(umaban_popularity[umaban])
                     else:
                         mark = ' - ' if '-' in words else ' → '

@@ -14,6 +14,8 @@ db-dtypes~=1.1.1
 は手動で追加した
 
 biguqueryへのアクセス拒否が発生した場合は、bigqueryのデータを全削除するとよい（基本作成者が編集可能となるため、権限idの割り振りがバグっていると思われる）
+
+gcf上でifでNoneチェックする場合は "is None", "is not None"が必要で省略表記は不可
 """
 from multiprocessing import Process, Queue
 
