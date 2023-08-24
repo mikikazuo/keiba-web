@@ -47,12 +47,12 @@ export default function Card({ info }: { info: IAnalysis }) {
                   <WebVitals
                     title="回収率"
                     color="text-green-500"
-                    ratio={info.payback / info.whole_cnt / 100}
+                    ratio={info.payback / info.buyable_cnt / 100}
                   ></WebVitals>
                 </div>
               </div>
             </div>
-            <div className="my-2 font-bold text-white">{` ${info.cnt} レース / 全 ${info.whole_cnt} レース中`}</div>
+            <div className="my-2 font-bold text-white">{` ${info.win_cnt} レース / 全 ${info.buyable_cnt} レース中`}</div>
           </button>
         </div>
         <div className="flip-card-back gas pu">
@@ -76,12 +76,12 @@ export default function Card({ info }: { info: IAnalysis }) {
                   <WebVitals
                     title="勝率"
                     color="text-purple-500"
-                    ratio={info.cnt / info.whole_cnt}
+                    ratio={info.win_cnt / info.buyable_cnt}
                   ></WebVitals>
                 </div>
               </div>
             </div>
-            <div className="my-2 font-bold text-white">{`${info.cnt} レース / 全 ${info.whole_cnt} レース中`}</div>
+            <div className="my-2 font-bold text-white">{`${info.win_cnt} レース / 全 ${info.buyable_cnt} レース中`}</div>
           </button>
         </div>
       </div>

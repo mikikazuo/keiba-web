@@ -28,7 +28,7 @@ export default function Card() {
                   <ul className="prose-base -mt-2 whitespace-pre leading-normal text-white">
                     <li className="rounded-xl border-2 border-sky-500 text-sm">{`回収率が最大になる人気番`}</li>
                     <li className="rounded-xl border-2 border-sky-500 text-xs">{`トータルの回収額\n(毎レース100円購入時)`}</li>
-                    <li className="rounded-xl border-2 border-sky-500 text-xs">{`対象レース内での最大回収額`}</li>
+                    <li className="rounded-xl border-2 border-sky-500 text-xs">{`購入対象レース内での最大回収額`}</li>
                   </ul>
                 </div>
                 <div>
@@ -54,7 +54,7 @@ export default function Card() {
                     {"馬券名"}
                   </h2>
                   <ul className="prose-sm -mt-2 leading-normal text-white">
-                    <li className="whitespace-pre text-xs">{`以下、対象レース内で\n最大回収額となったレース情報`}</li>
+                    <li className="whitespace-pre text-xs">{`以下、購入対象レース内で\n最大回収額となったレース情報`}</li>
                     <li className="rounded-xl border-2 border-sky-500">{`レース日`}</li>
                     <li className="rounded-xl border-2 border-sky-500">{`レース場所`}</li>
                     <li className="rounded-xl border-2 border-sky-500">{`ラウンド数 & レース名`}</li>

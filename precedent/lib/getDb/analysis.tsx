@@ -29,8 +29,9 @@ export interface IAnalysis {
   order2: string;
   order3: string;
   payback_mvp: number;
-  cnt: number;
-  whole_cnt: number;
+  win_cnt: number;
+  buyable_cnt: number;
+  buy_type_cnt: number;
 }
 
 /** 馬券順序 */
