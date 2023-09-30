@@ -18,10 +18,10 @@ export default function Card() {
         <div className="flip-card-front gas he">
           <button onClick={flipCard}>
             <div
-              className={`gas he col-span-1 h-[10.5rem] overflow-hidden rounded-xl`}
+              className={`gas he col-span-1 h-[10.5rem] w-[330px] overflow-hidden rounded-xl`}
             >
               <div className="flex justify-between">
-                <div className="grid w-40 items-center text-center">
+                <div className="grid w-44 items-center text-center">
                   <h2 className="rad mb-2 rounded-xl border-2 border-sky-500 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
                     {"馬券名"}
                   </h2>
@@ -46,10 +46,10 @@ export default function Card() {
         <div className="flip-card-back gas pu">
           <button onClick={flipCard}>
             <div
-              className={`gas pu col-span-1 h-[10.5rem] overflow-hidden rounded-xl`}
+              className={`gas pu col-span-1 h-[10.5rem] w-[330px] overflow-hidden rounded-xl`}
             >
               <div className="flex justify-between">
-                <div className="grid w-40 items-center text-center ">
+                <div className="grid w-44 items-center text-center">
                   <h2 className="my-2 rounded-xl border-2 border-sky-500 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
                     {"馬券名"}
                   </h2>

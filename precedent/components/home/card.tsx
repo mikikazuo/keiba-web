@@ -19,21 +19,16 @@ export default function Card({ info }: { info: IAnalysis }) {
         <div className="flip-card-front gas he">
           <button onClick={flipCard}>
             <div
-              className={`gas he col-span-1 h-[10.5rem] overflow-hidden rounded-xl`}
+              className={`gas he col-span-1 h-[10.5rem] w-[330px] overflow-hidden rounded-xl`}
             >
               <div className="flex justify-between">
-                <div className="grid w-40 items-center text-center">
-                  <h2 className="mb-2 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
+                <div className="grid w-44 items-center text-center">
+                  <h2 className="mb-2 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-3xl font-bold text-transparent">
                     {info.buy_type}
                   </h2>
                   <ul className="prose-base -mt-2 leading-normal text-white">
                     <li className="text-2xl">{`${info.popularity}${
-                      info.popularity.length < 9 &&
-                      !info.popularity.includes("→")
-                        ? "番人気"
-                        : info.popularity.length < 7 //馬単用の短縮
-                        ? "番人気"
-                        : ""
+                      info.popularity.length < 9 ? "番人気" : ""
                     }`}</li>
                     <div className="mx-auto grid grid-cols-2 text-sm">
                       <div className="text-right">回収額：</div>
@@ -58,11 +53,11 @@ export default function Card({ info }: { info: IAnalysis }) {
         <div className="flip-card-back gas pu">
           <button onClick={flipCard}>
             <div
-              className={`gas pu col-span-1 h-[10.5rem] overflow-hidden rounded-xl`}
+              className={`gas pu col-span-1 h-[10.5rem] w-[330px] overflow-hidden rounded-xl`}
             >
               <div className="flex justify-between">
-                <div className="grid w-40 items-center text-center">
-                  <h2 className="mb-2 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
+                <div className="grid w-44 items-center text-center">
+                  <h2 className="mb-2 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-3xl font-bold text-transparent">
                     {info.buy_type}
                   </h2>
                   <ul className="prose-sm -mt-2 leading-normal text-white">

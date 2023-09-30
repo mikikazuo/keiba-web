@@ -12,7 +12,7 @@ export default function WebVitals({
 }) {
   return (
     <div className="relative">
-      <motion.svg viewBox="0 0 140 140" width={140} height={140}>
+      <motion.svg viewBox="0 0 140 140" width={150} height={150}>
         <motion.circle
           initial={{ pathLength: 0 }}
           animate={{ pathLength: ratio > 1 ? 1 : ratio }}
@@ -40,7 +40,7 @@ export default function WebVitals({
           color
         }
       />
-      <div className={"absolute left-[3.9rem] top-[5.5rem] text-xl  " + color}>
+      <div className={"absolute left-[4.25rem] top-[5.9rem] text-xl  " + color}>
         %
       </div>
     </div>

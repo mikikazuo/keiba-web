@@ -2,10 +2,10 @@ import Beginner from "@/components/home/beginner";
 import Card from "@/components/home/card";
 import { Twitter } from "@/components/shared/icons";
 import { getAnalysis, getUpdateDate } from "@/lib/getDb/analysis";
-import Balancer from "react-wrap-balancer";
 import Image from "next/image";
+import Balancer from "react-wrap-balancer";
 
-export const revalidate = 0; // revalidate this page every 60 seconds
+export const revalidate = 0;
 export default async function Home() {
   const _updateDate = getUpdateDate("week");
   const _analysisWeek = getAnalysis("week");
@@ -41,12 +41,10 @@ export default async function Home() {
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
           <Balancer>
-            最新の人気ベースの最大回収率がまるわかりっぽ！<br></br>
+            最新の人気ベースの最大回収率がまるわかりっぽ！ <br />
             中央競馬で指定人気を買い続けた場合を
             <br className="md:hidden" />
-            シミュレーションするぽ～
-            <br></br>
-            <br></br>
+            シミュレーションするぽ～ <br /> <br />
             毎週更新だぽ（{`${updateDate}更新`}）
           </Balancer>
         </p>
@@ -66,14 +64,22 @@ export default async function Home() {
           </a>
         </div>
       </div>
-      <h2
-        className="range-title gas xe mt-5 animate-fade-up text-center text-2xl font-bold"
-        style={{ animationFillMode: "forwards" }}
-      >
+      <h2 className="range-title gas xe mt-5 animate-fade-up text-center text-2xl font-bold">
         直近 １週間
       </h2>
-      <div className="repeat my-10 grid w-full max-w-screen-xl animate-fade-up gap-y-10">
+      <div className="repeat my-10 grid w-11/12 max-w-screen-xl animate-fade-up gap-y-10">
         {analysisWeek.map((info) => (
+          <Card key={info.buy_type} info={info} />
+        ))}
+      </div>
+      <h2
+        className="range-title gas xe mt-20 animate-fade-up text-center text-2xl font-bold "
+        style={{ animationFillMode: "forwards" }}
+      >
+        直近 １ヶ月
+      </h2>
+      <div className="repeat my-10 grid w-11/12 max-w-screen-xl animate-fade-up gap-y-10">
+        {analysisMonth.map((info) => (
           <Card key={info.buy_type} info={info} />
         ))}
       </div>
@@ -84,17 +90,6 @@ export default async function Home() {
         width={96}
         height={96}
       />
-      {/* <h2
-        className="range-title gas xe mt-20 animate-fade-up text-center text-2xl font-bold "
-        style={{ animationFillMode: "forwards" }}
-      >
-        直近 １ヶ月
-      </h2>
-      <div className="repeat my-10 grid w-full max-w-screen-xl animate-fade-up gap-y-10">
-        {analysisMonth.map((info) => (
-          <Card key={info.buy_type} info={info} />
-        ))}
-      </div> */}
     </>
   );
 }

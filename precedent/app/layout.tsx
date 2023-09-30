@@ -1,13 +1,12 @@
-import cx from "classnames";
-import { inter, sfPro } from "./fonts";
-import "./globals.css";
-//import Nav from "@/components/layout/nav";
 import Footer from "@/components/layout/footer";
 import GoogleAnalytics from "@/lib/googleAnalytics/GaScript";
 import ShortcutIcon from "@/lib/shorcutIcon";
+import cx from "classnames";
 import Image from "next/image";
 import { Suspense } from "react";
 import "./darkforce.scss";
+import { inter, sfPro } from "./fonts";
+import "./globals.css";
 import "./neon.scss";
 
 export const metadata = {
@@ -49,7 +48,7 @@ export default async function RootLayout({
           <div className="fixed bottom-0 w-[500px]">{img}</div>
           <div className="fixed bottom-0 left-[500px] w-[500px]">{img}</div>
           <div className="fixed bottom-0 left-[1000px] w-[500px]">{img}</div>
-          <div className="lPeft-[1500px] fixed bottom-0 w-[500px]">{img}</div>
+          <div className="fixed bottom-0 left-[1500px] w-[500px]">{img}</div>
         </div>
         <div className="divSample">
           {[...Array(6).keys()].map((x) => sample("d" + (x + 1)))}
@@ -57,13 +56,15 @@ export default async function RootLayout({
 
         {/* <div className="to-cyan-100 fixed h-screen w-full bg-gradient-to-br from-green-100 to-green-200 via-white" /> */}
         <div className="to-cyan-100 fixed h-screen w-full" />
+        {/* <ThemeProvider> */}
         <Suspense fallback="...">
           {/* @ ts-expect-error Server Component */}
-          {/* <Nav /> */}
+          {/* <Navbar /> */}
         </Suspense>
         <main className="flex w-full flex-col items-center justify-center py-10">
           {children}
         </main>
+        {/* </ThemeProvider> */}
         <Footer />
       </body>
     </html>

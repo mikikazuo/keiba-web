@@ -1,14 +1,16 @@
+import { Google, LoadingDots } from "@/components/shared/icons";
 import Modal from "@/components/shared/modal";
-import { signIn } from "next-auth/react";
+import { signInWithRedirect } from "firebase/auth";
+import Image from "next/image";
+
 import {
-  useState,
   Dispatch,
   SetStateAction,
   useCallback,
   useMemo,
+  useState,
 } from "react";
-import { LoadingDots, Google } from "@/components/shared/icons";
-import Image from "next/image";
+import { auth, provider } from "../../lib/firebaseSDK/firebase-config";
 
 const SignInModal = ({
   showSignInModal,
@@ -18,7 +20,6 @@ const SignInModal = ({
   setShowSignInModal: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [signInClicked, setSignInClicked] = useState(false);
-
   return (
     <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>
       <div className="w-full overflow-hidden shadow-xl md:max-w-md md:rounded-2xl md:border md:border-gray-200">
@@ -32,10 +33,11 @@ const SignInModal = ({
               height={20}
             />
           </a>
-          <h3 className="font-display text-2xl font-bold">Sign In</h3>
+          <h3 className="font-display text-2xl font-bold">ログイン ・ 登録</h3>
           <p className="text-sm text-gray-500">
-            This is strictly for demo purposes - only your email and profile
-            picture will be stored.
+            有料プランをご利用予定の方は
+            <br />
+            ログイン / 登録 してください。
           </p>
         </div>
 
@@ -49,7 +51,7 @@ const SignInModal = ({
             } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
             onClick={() => {
               setSignInClicked(true);
-              signIn("google");
+              signInWithRedirect(auth, provider);
             }}
           >
             {signInClicked ? (
@@ -57,7 +59,7 @@ const SignInModal = ({
             ) : (
               <>
                 <Google className="h-5 w-5" />
-                <p>Sign In with Google</p>
+                <p>Googleアカウントで ログイン / 登録</p>
               </>
             )}
           </button>
@@ -80,7 +82,7 @@ export function useSignInModal() {
   }, [showSignInModal, setShowSignInModal]);
 
   return useMemo(
-    () => ({ setShowSignInModal, SignInModal: SignInModalCallback }),
-    [setShowSignInModal, SignInModalCallback],
+    () => ({ SignInModal: SignInModalCallback, setShowSignInModal }),
+    [SignInModalCallback, setShowSignInModal],
   );
 }
