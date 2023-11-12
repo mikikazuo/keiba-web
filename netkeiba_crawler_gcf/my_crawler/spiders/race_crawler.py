@@ -5,6 +5,7 @@ from google.cloud import bigquery
 
 from . import mylib
 
+import logging
 
 class RaceCrawlerSpider(scrapy.Spider):
     name = "race_crawler"
@@ -18,7 +19,7 @@ class RaceCrawlerSpider(scrapy.Spider):
     dt_now = datetime.utcnow() + timedelta(hours=9)
     dt_now = dt_now + timedelta(week[dt_now.weekday()])
 
-    def __init__(self, dataset_no='test', past=0, *args, **kwargs):
+    def __init__(self, dataset_no, past, *args, **kwargs):
         """
         :param dataset_no: データセット名　週連番
         :param past: 何週前のデータをクロールするか。０なら直近１週間
@@ -31,9 +32,8 @@ class RaceCrawlerSpider(scrapy.Spider):
         target_month = [self.dt_now + timedelta(-self.past * 7), self.dt_now + timedelta(-(self.past + 1) * 7 + 1)]
         target_month = list(set(map(lambda x: x.month, target_month)))
         for month in target_month:
-            yield scrapy.Request(
-                url=f'{self.base_url}/?pid=race_top&date={self.dt_now.year}{str(month).zfill(2)}',
-                callback=self.parse)
+            yield scrapy.Request(url=f'{self.base_url}/?pid=race_top&date={self.dt_now.year}{str(month).zfill(2)}',
+                                 callback=self.parse)
 
     def parse(self, response):
         # 月～金の祝日開催の場合でもsunクラスが割り当てられている。
@@ -44,6 +44,8 @@ class RaceCrawlerSpider(scrapy.Spider):
             diff_days = (self.dt_now - datetime.strptime(mylib.get_last_slash_word(date), '%Y%m%d')).days
             if self.past <= diff_days / 7 < self.past + 1:
                 race_list.append(self.base_url + date)
+        if not race_list:  # スクレイピング不可能な場合（取得先の運営の更新が遅れが原因、月曜が祝日の場合など）
+            raise ValueError(f"スクレイピング対象なし({self.past}週間前～{self.past + 1}週間前)")
         # カレンダーから各日に開催されたレースの一覧へ
         for race_url in race_list:
             if race_url is not None:

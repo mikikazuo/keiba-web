@@ -11,6 +11,9 @@ def get_last_slash_word(url):
 
 
 class BigQuery:
+    # 再スクレイピングフラグ
+    is_retry = False
+
     def __init__(self, dataset_id):
         self.client = bigquery.Client()
         self.dataset_id = f"{self.client.project}.{dataset_id}"
@@ -21,6 +24,8 @@ class BigQuery:
             self.client.get_dataset(self.dataset_id)  # Make an API request.
             print("Dataset {} already exists".format(self.dataset_id))
         except NotFound:
+            if self.is_retry:  # あくまで空のデータセットが見つかった時だけ再スクレイピングする（空のデータセットを削除する方式だと２回目かどうかの判断が複雑になる）
+                raise ValueError(f"再スクレイピング不要")
             dataset = bigquery.Dataset(self.dataset_id)
             dataset.location = "us-west1"
             dataset = self.client.create_dataset(dataset, timeout=30)  # Make an API request.

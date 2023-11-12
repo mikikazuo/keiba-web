@@ -1,8 +1,12 @@
 import pandas as pd
+from google.api_core.exceptions import NotFound
 from google.cloud import bigquery
+
+from params import week_cnt_table_id, past_week_max
 
 
 class Analysis:
+    is_retry = False
     # テーブルに付与しているオプションラベル名
     label_key = ['date', 'round', 'place', 'name', 'order1', 'order2', 'order3']
 
@@ -17,6 +21,10 @@ class Analysis:
         :param past: 指定週間前のデータを取得する
         """
         dataset_id = f'{self.bq.client.project}.week{str(self.now_cnt - past).zfill(4)}'
+        try:  # gcf上ではstart_crawl関数内のcreate_dataset関数のraiseで全終了しない（別プロセッサで動いているせいか？）ため、ここで弾く
+            self.bq.client.get_dataset(dataset_id)  # Make an API request.
+        except NotFound:
+            raise ValueError(f"再スクレイピング不要[解析]")
         tables = self.bq.client.list_tables(dataset_id)  # Make an API request.
         part_df_list = []
         buy_type_df_list = []
@@ -32,13 +40,27 @@ class Analysis:
             # ユニークな馬券種と着馬数
             buy_type_df_list.append(
                 pd.DataFrame({'buy_type': part_df.buy_type.unique(), 'max_order': int(label_dict['max_order'])}))
+        if not len(part_df_list):
+            if past == 0:
+                if Analysis.is_retry:  # TODO 年始のスキップ分チェック
+                    # 最古週のデータセットを削除
+                    self.bq.client.delete_dataset(f"{self.bq.client.project}.week{str(self.now_cnt - (past_week_max + 1)).zfill(4)}",
+                                             delete_contents=True, not_found_ok=True)  # Make an API request.
+                    self.bq.update_query(week_cnt_table_id , f'cnt={self.now_cnt}', f'cnt={self.now_cnt - 1}')
+                    raise ValueError(f'データセット:{dataset_id} の週のレースが存在しないためスキップ')
+                else:
+                    raise ValueError(f"統合対象なし、数日後に再リトライ予定")
+            else:
+                print(f'データセット:{dataset_id} の週のレースが存在しないためスキップ')
+                return
+
         self.sum_df = pd.concat(part_df_list) if self.sum_df is None else pd.concat(
             [self.sum_df, pd.concat(part_df_list)])
         self.buy_type_df = pd.concat(buy_type_df_list) if self.buy_type_df is None else pd.concat(
             [self.buy_type_df, pd.concat(buy_type_df_list)])
         formed_datetime = pd.to_datetime(self.sum_df.date, format='%Y年%m月%d日')
         print(
-            f'テーブル:{dataset_id}  範囲期間: {min(formed_datetime).date().strftime("%Y年%m月%d日")}～{max(formed_datetime).date().strftime("%Y年%m月%d日")}')
+            f'データセット:{dataset_id}  範囲期間: {min(formed_datetime).date().strftime("%Y年%m月%d日")}～{max(formed_datetime).date().strftime("%Y年%m月%d日")}')
 
     def gen_unique_df(self):
         """
