@@ -1,7 +1,11 @@
 import Footer from "@/components/layout/footer";
+
+import Navbar from "@/components/layout/navbar";
+import Upbtn from "@/components/layout/upbtn";
 import GoogleAnalytics from "@/lib/googleAnalytics/GaScript";
 import ShortcutIcon from "@/lib/shorcutIcon";
 import cx from "classnames";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Suspense } from "react";
 import "./darkforce.scss";
@@ -9,15 +13,16 @@ import { inter, sfPro } from "./fonts";
 import "./globals.css";
 import "./neon.scss";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "逆張り星人 - 競馬分析攻略",
-  description: "最新の人気ベースの最大回収率がまるわかりっぽ！毎週更新だぽ",
+  description:
+    "〇〇番人気を買い続けるだけで回収率100%越え！？最新の人気ベースの最大回収率や逆境を覆す穴馬がまるわかり！毎週更新",
   twitter: {
     card: "summary_large_image",
     title: "逆張り星人 - 競馬分析攻略",
     description:
-      "最新の人気ベースの最大回収率が無料でまるわかりっぽ！毎週更新だぽ",
-    creator: "@reversekeiba",
+      "〇〇番人気を買い続けるだけで回収率100%越え！？最新の人気ベースの最大回収率や逆境を覆す穴馬ががまるわかり！毎週更新",
+    creator: "@keibareverse",
     images: ["https://reversekeiba.com/logo.png"],
   },
   themeColor: "#FFF",
@@ -31,12 +36,12 @@ export default async function RootLayout({
   const img = <Image src="/spaceback.png" alt="" width={500} height={500} />;
 
   const sample = (id: string) => (
-    <div id={id} className="h-full w-full">
+    <div key={id} id={id} className="h-full w-full">
       {img}
     </div>
   );
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={cx(sfPro.variable, inter.variable)}>
         <GoogleAnalytics />
         <ShortcutIcon />
@@ -45,10 +50,10 @@ export default async function RootLayout({
           <div className="fixed left-[500px] top-0 w-[500px]">{img}</div>
           <div className="fixed left-[1000px] top-0 w-[500px]">{img}</div>
           <div className="fixed left-[1500px] top-0 w-[500px]">{img}</div>
-          <div className="fixed bottom-0 w-[500px]">{img}</div>
-          <div className="fixed bottom-0 left-[500px] w-[500px]">{img}</div>
-          <div className="fixed bottom-0 left-[1000px] w-[500px]">{img}</div>
-          <div className="fixed bottom-0 left-[1500px] w-[500px]">{img}</div>
+          <div className="fixed top-[500px] w-[500px]">{img}</div>
+          <div className="fixed left-[500px] top-[500px] w-[500px]">{img}</div>
+          <div className="fixed left-[1000px] top-[500px] w-[500px]">{img}</div>
+          <div className="fixed left-[1500px] top-[500px] w-[500px]">{img}</div>
         </div>
         <div className="divSample">
           {[...Array(6).keys()].map((x) => sample("d" + (x + 1)))}
@@ -56,15 +61,15 @@ export default async function RootLayout({
 
         {/* <div className="to-cyan-100 fixed h-screen w-full bg-gradient-to-br from-green-100 to-green-200 via-white" /> */}
         <div className="to-cyan-100 fixed h-screen w-full" />
-        {/* <ThemeProvider> */}
+
         <Suspense fallback="...">
           {/* @ ts-expect-error Server Component */}
-          {/* <Navbar /> */}
+          <Navbar />
         </Suspense>
         <main className="flex w-full flex-col items-center justify-center py-10">
           {children}
         </main>
-        {/* </ThemeProvider> */}
+        <Upbtn />
         <Footer />
       </body>
     </html>

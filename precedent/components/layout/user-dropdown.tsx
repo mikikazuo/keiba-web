@@ -1,55 +1,46 @@
 "use client";
 
 import Popover from "@/components/shared/popover";
-import { useAuthContext } from "@/components/theme-provider";
 import { auth } from "@/lib/firebaseSDK/firebase-config";
-import { signOut } from "firebase/auth";
-import { Banknote, LogOut, Settings } from "lucide-react";
+import { LogOut, Settings } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { useState } from "react";
 
-export default function UserDropdown() {
+export default function UserDropdown({ signOut }: { signOut: () => void }) {
   const [openPopover, setOpenPopover] = useState(false);
-  const { user } = useAuthContext();
-
+  const router = useRouter();
   return (
     <div className="relative inline-block text-left">
       <Popover
         content={
           <div className="w-full rounded-md bg-white p-2 sm:w-56">
-            {/* <Link
-              className="flex items-center justify-start space-x-2 relative w-full rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100"
-              href="/dashboard"
-            >
-              <LayoutDashboard className="h-4 w-4" />
-              <p className="text-sm">Dashboard</p>
-            </Link> */}
-            <div className="mb-3">{user?.displayName + " 様"}</div>
+            <div className="mb-3">
+              {auth.currentUser?.displayName
+                ? auth.currentUser?.displayName + " 様"
+                : ""}
+              {/* メールアドレスログイン時はnullとなるため非表示 */}
+            </div>
             <button
-              className="relative flex w-full cursor-not-allowed items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100"
-              disabled
+              className="relative flex w-full items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100"
+              onClick={() => {
+                setOpenPopover(!openPopover);
+                router.push("/userinfo");
+              }}
             >
               <Settings className="h-4 w-4" />
               <p className="text-sm">登録情報</p>
             </button>
-            <button
+            {/* <button
               className="relative flex w-full cursor-not-allowed items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100"
               disabled
             >
               <Banknote className="h-4 w-4" />
               <p className="text-sm">支払情報</p>
-            </button>
+            </button> */}
             <button
               className="relative flex w-full items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100"
-              onClick={() =>
-                signOut(auth)
-                  .then(() => {
-                    // Sign-out successful.
-                  })
-                  .catch((error) => {
-                    // An error happened.
-                  })
-              }
+              onClick={() => signOut()}
             >
               <LogOut className="h-4 w-4" />
               <p className="text-sm">ログアウト</p>

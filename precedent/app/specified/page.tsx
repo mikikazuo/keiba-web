@@ -1,16 +1,10 @@
-// export const metadata: Metadata = {
-//   // 省略
-//   robots: {
-//     index: false, // noindexの設定
-//     googleBot: {
-//       index: false,
-//     },
-//   },
-// };
 export default function Page() {
   return (
     <>
-      <p className="my-8 animate-fade-up text-center text-xl text-gray-300 md:text-2xl">
+      <p
+        className="my-8 animate-fade-up text-center text-xl text-gray-300 md:text-2xl"
+        style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
+      >
         特定商取引法に基づく表記
       </p>
       <table className="table-auto border-separate animate-fade-up text-left text-sm text-gray-300 md:text-lg">
@@ -23,8 +17,8 @@ export default function Page() {
             <th className="border px-4 py-2">販売価格</th>
             <th className="border px-4 py-2">
               <ul>
-                <li>「１ヶ月プラン」 498円</li>
-                <li>「年間プラン」 4980円</li>
+                <li>「１ヶ月プラン」 980円（自動更新）</li>
+                <li>「年間プラン」 9800円（自動更新）</li>
               </ul>
             </th>
           </tr>
@@ -48,12 +42,14 @@ export default function Page() {
               利用が可能となる時期
             </th>
             <th className="border px-4 py-2">
-              会員登録＆有料プラン申込後、直ちにご利用いただけます。
+              会員登録＆有料プラン登録後、直ちにご利用いただけます。
             </th>
           </tr>
           <tr>
-            <th className="border px-4 py-2">お支払い方法</th>
-            {/* <th className="border px-4 py-2">Paypay</th> */}
+            <th className="border px-4 py-2">お支払方法</th>
+            <th className="border px-4 py-2">
+              クレジットカード（JCB / American Express / Diners Club）
+            </th>
           </tr>
           <tr>
             <th className="border px-4 py-2">キャンセル・返金</th>

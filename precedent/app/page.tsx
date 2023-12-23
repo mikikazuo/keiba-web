@@ -1,23 +1,28 @@
 import Beginner from "@/components/home/beginner";
 import Card from "@/components/home/card";
+import PremiumCards from "@/components/home/premium-cards";
 import { Twitter } from "@/components/shared/icons";
 import { getAnalysis, getUpdateDate } from "@/lib/getDb/analysis";
 import Image from "next/image";
+import Link from "next/link";
 import Balancer from "react-wrap-balancer";
 
 export const revalidate = 0;
 export default async function Home() {
   const _updateDate = getUpdateDate("week");
   const _analysisWeek = getAnalysis("week");
-  const _analysisMonth = getAnalysis("month");
-  const [updateDate, analysisWeek, analysisMonth] = await Promise.all([
+
+  //サーバーコンポーネント側でクッキーの呼び出しは不可(emulatorでは取得できたが、デプロイ後は不可)
+  //できると示唆するサイトもあるが、firebase上だと相性が悪い？
+  // const cookieStore = cookies();
+
+  const [updateDate, analysisWeek] = await Promise.all([
     _updateDate,
     _analysisWeek,
-    _analysisMonth,
   ]);
   return (
     <>
-      <div className="z-10 w-full max-w-xl">
+      <div className="z-10 mt-5 w-full max-w-xl">
         <h2
           className="ml-5 animate-fade-up text-gray-300 opacity-0 md:text-xl"
           style={{ animationDelay: "0.1s", animationFillMode: "forwards" }}
@@ -57,39 +62,81 @@ export default async function Home() {
             href="https://twitter.com/intent/tweet?text=無料で最新の人気ベースの最大回収率がまるわかりっぽ！%0a毎週更新だぽ%0a&hashtags=逆張り星人&url=reversekeiba.com"
             target="_blank"
             rel="noreferrer"
-            className="tweet-btn my-auto flex space-x-2 overflow-hidden rounded-full bg-blue-100 px-7 py-3 transition-colors hover:bg-blue-200"
+            className="tweet-btn my-auto flex space-x-2 overflow-hidden rounded-full bg-gray-600 px-7 py-3 transition-colors hover:bg-blue-200"
           >
             <Twitter className="h-5 w-5 text-[#1d9bf0]" />
-            <p className="text-sm font-semibold text-[#1d9bf0]">ツイートする</p>
+            <p className="text-sm font-semibold text-white">ポストする</p>
           </a>
         </div>
       </div>
-      <h2 className="range-title gas xe mt-5 animate-fade-up text-center text-2xl font-bold">
+      <div
+        className="flex w-72 animate-fade-up justify-between opacity-0"
+        style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
+      >
+        <a
+          href="#month"
+          className="inline-block rounded-md border border-white bg-black/60 p-1.5 px-4 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+        >
+          直近 １ヶ月へ
+        </a>
+        <a
+          href="#three-month"
+          className="inline-block rounded-md border border-white bg-black/60 p-1.5 px-4 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+        >
+          直近 ３ヶ月へ
+        </a>
+      </div>
+      <h2
+        className="range-title gas xe mt-10 animate-fade-up text-center text-2xl font-bold"
+        style={{ animationFillMode: "forwards" }}
+      >
         直近 １週間
       </h2>
-      <div className="repeat my-10 grid w-11/12 max-w-screen-xl animate-fade-up gap-y-10">
+      <div className="repeat mt-10 grid w-11/12 max-w-screen-xl animate-fade-up gap-y-10">
         {analysisWeek.map((info) => (
           <Card key={info.buy_type} info={info} />
         ))}
       </div>
+      <div className="mb-14" id="month"></div>
       <h2
-        className="range-title gas xe mt-20 animate-fade-up text-center text-2xl font-bold "
+        className="range-title gas xe animate-fade-up text-center text-2xl font-bold"
+        id="month"
         style={{ animationFillMode: "forwards" }}
       >
         直近 １ヶ月
       </h2>
-      <div className="repeat my-10 grid w-11/12 max-w-screen-xl animate-fade-up gap-y-10">
-        {analysisMonth.map((info) => (
-          <Card key={info.buy_type} info={info} />
-        ))}
-      </div>
+      <PremiumCards range="month" />
+      <div className="mb-14" id="three-month"></div>
+      <h2
+        className="range-title gas xe animate-fade-up text-center text-2xl font-bold"
+        style={{ animationFillMode: "forwards" }}
+      >
+        直近 ３ヶ月
+      </h2>
+      <PremiumCards range="three_month" />
       <Image
-        className="mx-auto"
+        className="mx-auto mt-10"
         src="/favicons/android-chrome-192x192.png"
         alt="logo"
         width={96}
         height={96}
       />
+      <div
+        className="bottom-30 fixed z-30 w-full animate-fade-up transition-all"
+        style={{ animationFillMode: "forwards" }}
+      >
+        <div className="mx-3 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
+          <div />
+          <div className="flex">
+            <Link
+              href="/price"
+              className="mr-3 inline-block rounded-full border border-white bg-black/60 p-1.5 px-4 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+            >
+              有料プラン登録
+            </Link>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

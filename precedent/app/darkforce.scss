@@ -1,5 +1,3 @@
-@charset "utf-8";
-
 /*
 Theme Name: CSS3 DarkForce
 Author: ONZE - Issei Hara
@@ -46,7 +44,7 @@ $spaceTime: 2;
 @-webkit-keyframes warp {
   from {
     opacity: 0.2;
-    transform: rotate(-60deg) translateZ(292px);
+    transform: rotate(-60deg) translateZ(0px);
   }
 
   to {
@@ -58,7 +56,7 @@ $spaceTime: 2;
 @-moz-keyframes warp {
   from {
     opacity: 0.2;
-    transform: rotate(-60deg) translateZ(292px);
+    transform: rotate(-60deg) translateZ(0px);
   }
 
   to {
@@ -70,11 +68,11 @@ $spaceTime: 2;
 @-ms-keyframes warp {
   from {
     opacity: 0.2;
-    transform: rotate(-60deg) translateZ(292px);
+    transform: rotate(-60deg) translateZ(0px);
   }
 
   to {
-    opacity: 0.5;
+    opacity: 1;
     -ms-transform: rotate(60deg) translateZ(300px);
   }
 }
@@ -82,7 +80,7 @@ $spaceTime: 2;
 @-o-keyframes warp {
   from {
     opacity: 0.2;
-    transform: rotate(-60deg) translateZ(292px);
+    transform: rotate(-60deg) translateZ(0px);
   }
 
   to {
@@ -94,7 +92,7 @@ $spaceTime: 2;
 @keyframes warp {
   from {
     opacity: 0.2;
-    transform: rotate(-60deg) translateZ(292px);
+    transform: rotate(-60deg) translateZ(0px);
   }
 
   to {
@@ -107,15 +105,15 @@ $spaceTime: 2;
 /******************/
 
 .divSample {
-  width: 10px;
-  height: 10px;
-  perspective: 300;
-  -webkit-perspective: 300;
-  -moz-perspective: 300;
-  -ms-perspective: 300;
-  -o-perspective: 300;
-
+  width: 500px;
+  height: 500px;
+  perspective: 300px;
+  -webkit-perspective: 300px;
+  -moz-perspective: 300px;
+  -ms-perspective: 300px;
+  -o-perspective: 300px;
   position: fixed;
-  bottom: 70lvh;
-  left: 50lvw;
+  inset: 0;
+  margin: auto;
+  margin-top: 0%;
 }

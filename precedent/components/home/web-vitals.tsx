@@ -12,7 +12,7 @@ export default function WebVitals({
 }) {
   return (
     <div className="relative">
-      <motion.svg viewBox="0 0 140 140" width={150} height={150}>
+      <motion.svg viewBox="0 0 140 140" width={135} height={150}>
         <motion.circle
           initial={{ pathLength: 0 }}
           animate={{ pathLength: ratio > 1 ? 1 : ratio }}
@@ -36,11 +36,11 @@ export default function WebVitals({
         decimal={color.match("green") ? 1 : 100}
         duration={2500}
         className={
-          "absolute inset-0 top-2 mx-auto flex items-center justify-center font-display text-3xl " +
+          "absolute inset-0 top-1 mx-auto flex items-center justify-center font-display text-2xl " +
           color
         }
       />
-      <div className={"absolute left-[4.25rem] top-[5.9rem] text-xl  " + color}>
+      <div className={"absolute left-[3.8rem] top-[5.9rem] text-xl " + color}>
         %
       </div>
     </div>

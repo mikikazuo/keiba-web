@@ -35,12 +35,13 @@
   flex-direction: column;
   font-family: system-ui, sans-serif;
 
-  justify-content: space-around;
+  justify-content: space-between;
 
-  > * {
-    margin: 0;
-    padding: 0;
-  }
+  //非公開枠作成に伴いコメントアウト（内側の文字列を中央に寄せるため）
+  // > * {
+  //   margin: 0;
+  //   padding: 0;
+  // }
 
   .number {
     font-weight: 700;
@@ -60,7 +61,7 @@
   &.pu {
     --color: #d9abff;
     filter: saturate(175%);
-    background-color: rgba(255, 0, 255, 0.199);
+    background-color: rgba(255, 0, 255, 0.175);
   }
   &.ne {
     --color: #fda802;
@@ -76,7 +77,7 @@
   }
   &.xe {
     --color: #c4c4c6;
-    filter: brightness(255%);
+    filter: brightness(155%);
     background-color: rgba(255, 255, 255, 0.199);
   }
 }

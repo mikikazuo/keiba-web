@@ -1,12 +1,12 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const pathname = usePathname();
 
-  return pathname == "/maintenance" ? null : (
+  if (pathname == "/maintenance") return null;
+  return (
     <>
       <div
         className="mb-10 animate-fade-up text-center text-sm text-white opacity-0"
@@ -24,7 +24,7 @@ export default function Footer() {
         style={{ animationFillMode: "forwards" }}
       >
         ©2023
-        <a className="text-blue-300" href="https://twitter.com/reversekeiba777">
+        <a className="text-blue-300" href="https://twitter.com/keibareverse">
           &nbsp;逆張り星人
         </a>
       </div>

@@ -4,20 +4,20 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import "../../app/neon.scss";
 
-export default async function Page() {
+export default function Page() {
   return (
     <>
       <div className="z-10 w-full max-w-xl flex-col justify-between">
         <div className="title mt-2">
           <h1
-            className="glitch animate-fade-up bg-clip-text text-6xl font-bold text-white opacity-0 md:text-7xl md:leading-[5rem]"
+            className="glitch animate-fade-up bg-clip-text text-5xl font-bold text-white opacity-0 md:text-7xl md:leading-[5rem]"
             style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
           >
-            <div className="line">準備中</div>
-            <div className="line">準備中</div>
-            <div className="line">準備中</div>
-            <div className="line">準備中</div>
-            <div className="line">準備中</div>
+            <div className="line">メンテナンス中</div>
+            <div className="line">メンテナンス中</div>
+            <div className="line">メンテナンス中</div>
+            <div className="line">メンテナンス中</div>
+            <div className="line">メンテナンス中</div>
           </h1>
         </div>
 
@@ -43,7 +43,7 @@ export default async function Page() {
         </motion.div>
         <div className="title">
           <h1
-            className="glitch animate-fade-up bg-clip-text text-6xl font-bold text-white opacity-0 md:text-7xl md:leading-[5rem]"
+            className="glitch animate-fade-up bg-clip-text text-5xl font-bold text-white opacity-0 md:text-7xl md:leading-[5rem]"
             style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
           >
             <div className="line">だぽ☆</div>
@@ -59,13 +59,13 @@ export default async function Page() {
         style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
       >
         <a
-          href="https://twitter.com/intent/tweet?text=ぽーぽぽっぽー、逆張り星人だぽ%0aサイトオープンまでもうしばらくお待ちくださいっぽ☆%0a&hashtags=逆張り星人&url=reversekeiba.com"
+          href="https://twitter.com/intent/tweet?text=ぽーぽぽっぽー、サイトオープンまでもうしばらくお待ちくださいっぽ☆%0a&hashtags=逆張り星人&url=reversekeiba.com"
           target="_blank"
           rel="noreferrer"
-          className="tweet-btn flex space-x-2 overflow-hidden rounded-full bg-blue-100 px-7 py-3 transition-colors hover:bg-blue-200"
+          className="tweet-btn flex space-x-2 overflow-hidden rounded-full bg-gray-600 px-7 py-3 transition-colors hover:bg-blue-200"
         >
           <Twitter className="h-5 w-5 text-[#1d9bf0]" />
-          <p className="text-sm font-semibold text-[#1d9bf0]">ツイートする</p>
+          <p className="text-sm font-semibold text-white">ポストする</p>
         </a>
       </div>
     </>

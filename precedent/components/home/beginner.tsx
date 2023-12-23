@@ -1,7 +1,8 @@
 "use client";
-import Card from "@/components/home/beginner-card";
+import BeginnerCard from "@/components/home/beginner-card";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useRef, useState } from "react";
+import { isMobile } from "react-device-detect";
 // import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 export default function Example() {
@@ -56,10 +57,12 @@ export default function Example() {
                           as="h3"
                           className="text-base font-semibold leading-6 text-white md:text-xl"
                         >
-                          表示の説明（下をクリック もしくは タップ）
+                          {`表示の説明（カードを${
+                            isMobile ? "タップ" : "クリック"
+                          }）`}
                         </Dialog.Title>
                         <div className="my-8 items-center">
-                          <Card />
+                          <BeginnerCard />
                         </div>
                       </div>
                     </div>

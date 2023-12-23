@@ -1,7 +1,10 @@
 export default function Page() {
   return (
     <>
-      <div className="mx-6 w-auto max-w-7xl animate-fade-up  text-gray-300">
+      <div
+        className="mx-6 w-auto max-w-7xl animate-fade-up text-gray-300"
+        style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
+      >
         <p className="my-8 text-center text-xl md:text-2xl">
           プライバシーポリシー
         </p>

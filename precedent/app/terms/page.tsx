@@ -1,13 +1,15 @@
 export default function Page() {
   return (
     <>
-      <div className="mx-6 w-auto max-w-7xl animate-fade-up  text-gray-300">
+      <div
+        className="mx-6 w-auto max-w-7xl animate-fade-up  text-gray-300"
+        style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
+      >
         <p className="my-8 text-center text-xl md:text-2xl">利用規約</p>
         <p className="text-smmd:text-base my-3 text-left">
           サービス「逆張り星人」（以下「当サービス」）をご利用頂く際の取扱いにつき定めるものです。
           本規約に同意した上で当サービスをご利用ください。
         </p>
-
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">第1条（定義）</p>
         <div className="ml-6 text-sm md:text-base">
           利用規約本則（以下「本則」といいます）における用語を下記の通り定義します。
@@ -116,7 +118,23 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第5条（会員の脱会・抹消）
+          第5条（有料プラン登録）
+        </p>
+        <div className="ml-6 text-sm md:text-base">
+          <ol className="ml-4 list-decimal">
+            <li>
+              有料プラン契約は、会員登録した上で、運営者が指定する方法で申込みを行い、これを運営者が受諾した時点で成立するものとします。
+            </li>
+            <li>
+              会員は、運営者が前項の申込みを受諾した日から有料プラン限定サービスを利用できます。
+            </li>
+            <li>
+              契約期間の途中で解約された場合であっても、発生した利用料金は、日割精算等による返金を含め一切返金は行いませんので、ご留意ください。
+            </li>
+          </ol>
+        </div>
+        <p className="mb-3 mt-5 text-left text-lg md:text-xl">
+          第6条（会員の脱会・抹消）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -124,7 +142,7 @@ export default function Page() {
               会員が当サービスを退会するときは、運営者所定の手続きにより申請を行うものとします。
             </li>
             <li>
-              運営者は会員が以下の項目に該当するような場合、運営者は会員に対する通知・許諾なしに会員登録の一時停止または抹消することができるものとします。
+              運営者は会員が以下の項目に該当するような場合、運営者は会員に対する通知・許諾なしに会員登録の一時停止または抹消することができ、利用料金の支払い方法を問わず、運営者からは一切の返金が行われないものとします。
               <ol className="ml-4 list-disc">
                 <li>会員登録時における申告内容に虚偽があった場合</li>
                 <li>
@@ -134,7 +152,7 @@ export default function Page() {
                 <li>
                   登録希望者が過去運営者との契約に違反した者またはその関係者であると認められる場合
                 </li>
-                <li>6ヶ月以上当サービスの利用がない場合</li>
+                <li>6ヶ月以上ログインしていない場合</li>
                 <li>
                   運営者からの問いあわせその他の回答を求める連絡に対して30日間以上応答がない場合
                 </li>
@@ -144,7 +162,7 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第6条（利用者の禁止行為）
+          第7条（利用者の禁止行為）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -173,7 +191,7 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第7条（自己の責任の原則）
+          第8条（自己の責任の原則）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -201,12 +219,15 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第8条（免責事項）
+          第9条（免責事項）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
             <li>
               運営者は当サービスの利用により発生した利用者又は他の第三者が被った損害すべてに対し、いかなる責任も負わないものとし、一切の損害賠償をする義務はないものとします。
+            </li>
+            <li>
+              推奨環境からの利用であるか否かを問わず、本サービスの動作保証を行いません。
             </li>
             <li>
               当サービスにおいて提供される情報やサービス内容について、その完全性、正確性、有用性、嗜好性、満足度等に関して、いかなる保証も行わないものとします。
@@ -229,7 +250,7 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第9条（当サービスの一時的な中断、変更）
+          第10条（当サービスの一時的な中断、変更）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -247,7 +268,7 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第10条（反社会的勢力排除）
+          第11条（反社会的勢力排除）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -268,7 +289,7 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第11条（著作権）
+          第12条（著作権）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -285,7 +306,7 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第12条（リンク）
+          第13条（リンク）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -309,9 +330,8 @@ export default function Page() {
             </li>
           </ol>
         </div>
-
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第13条（広告の掲載について）
+          第14条（広告の掲載について）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -321,7 +341,7 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第14条（分離可能性）
+          第15条（分離可能性）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -331,7 +351,7 @@ export default function Page() {
           </ol>
         </div>
         <p className="mb-3 mt-5 text-left text-lg md:text-xl">
-          第15条（準拠法）
+          第16条（準拠法）
         </p>
         <div className="ml-6 text-sm md:text-base">
           <ol className="ml-4 list-decimal">
@@ -340,7 +360,7 @@ export default function Page() {
             </li>
           </ol>
         </div>
-        <p className="mb-3 mt-5 text-right ">2023年9月28日更新</p>
+        <p className="mb-3 mt-5 text-right ">2023年12月3日更新</p>
       </div>
     </>
   );
