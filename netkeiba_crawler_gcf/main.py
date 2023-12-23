@@ -3,7 +3,7 @@
 is_deployフラグをTrueにすること
 --allow-unauthenticated --ingress-settingsオプションで同プロジェクト内のスケジューラ―から呼び出せるようにした
 
-gcloud functions deploy netkeiba-crawl --gen2 --runtime=python311 --region=us-west1 --source=. --entry-point=hello_http --trigger-http --allow-unauthenticated --ingress-settings=internal-only --memory=1GiB --timeout=3600
+gcloud functions deploy netkeiba-crawl --gen2 --runtime=python311 --region=asia-northeast1 --source=. --entry-point=hello_http --trigger-http --allow-unauthenticated --ingress-settings=internal-only --memory=1GiB --timeout=3600
 
 空のrequiments.txt用意してpycharm上部に表示されるバナーから自動追加する
 もしくは pipreqs --encoding UTF8 . コマンドを使う
