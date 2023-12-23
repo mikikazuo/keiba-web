@@ -6,3 +6,7 @@ prisma.tsのファイル名をprisma.tsenableにする
 env.exampleのファイル名を.envにする必要あり
 package.jsonのbuildコマンドのprismaコマンドを消す
 import prisma from "@/lib/prisma";のコメントアウト
+
+staticフォルダーの削除（非推奨となったため　参考　https://nextjs.org/docs/messages/static-dir-deprecated）
+
+firebaseでサポートされてるnextjsのバージョンは13.4.7 参考　https://firebase.google.com/docs/hosting/frameworks/nextjs?hl=ja
