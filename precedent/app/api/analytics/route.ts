@@ -45,7 +45,7 @@ export async function GET(request: Request) {
   const sqlQuery = `SELECT * FROM \`${tableId}\``;
   const options = {
     query: sqlQuery,
-    location: "asia-northeast1",
+    location: "asia-east1",
   };
 
   const [rows]: IAnalysis[][] = await bigqueryClient.query(options);

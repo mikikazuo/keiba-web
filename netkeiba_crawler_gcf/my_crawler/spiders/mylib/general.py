@@ -27,7 +27,7 @@ class BigQuery:
             if self.is_retry:  # あくまで空のデータセットが見つかった時だけ再スクレイピングする（空のデータセットを削除する方式だと２回目かどうかの判断が複雑になる）
                 raise ValueError(f"再スクレイピング不要")
             dataset = bigquery.Dataset(self.dataset_id)
-            dataset.location = "asia-northeast1"
+            dataset.location = "asia-east1"
             dataset = self.client.create_dataset(dataset, timeout=30)  # Make an API request.
             print("Created dataset {}.{}".format(self.client.project, dataset.dataset_id))
 

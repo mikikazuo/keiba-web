@@ -10,7 +10,7 @@ export const getUpdateDate = cache(async (tableId: string) => {
 
   const options = {
     query: sqlQuery,
-    location: "us-west1",
+    location: "asia-east1",
   };
 
   const [[date]] = await bigqueryClient.query(options);
@@ -51,7 +51,7 @@ export const getAnalysis = cache(async (tableId: string) => {
   const sqlQuery = `SELECT * FROM \`${tableId}\``;
   const options = {
     query: sqlQuery,
-    location: "us-west1",
+    location: "asia-east1",
   };
 
   const [rows]: IAnalysis[][] = await bigqueryClient.query(options);
