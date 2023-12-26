@@ -1,4 +1,6 @@
-# デフォルトの無視対象ファイル
+#参考 https://nwpct1.hatenablog.com/entry/pycharm-development
+*.xml
+
 !/codeStyleSettings.xml
 !/copyright/*.xml
 !/fileColors.xml
