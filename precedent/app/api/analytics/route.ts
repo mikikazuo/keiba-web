@@ -35,7 +35,7 @@ export async function GET(request: Request) {
         );
     } else
       return NextResponse.json({ error: "Limit over Error" }, { status: 500 });
-  }
+  } else return NextResponse.json({ error: "Db not exist" }, { status: 500 });
 
   //取得
   const { searchParams } = new URL(request.url);

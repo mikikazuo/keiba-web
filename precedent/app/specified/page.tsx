@@ -15,8 +15,8 @@ export default function Page() {
           </tr>
           <tr>
             <th className="border px-4 py-2">販売価格</th>
-            <th className="border px-4 py-2">
-              <ul>
+            <th className="border px-8 py-2">
+              <ul className="list-disc">
                 <li>「１ヶ月プラン」 980円（自動更新）</li>
                 <li>「年間プラン」 9800円（自動更新）</li>
               </ul>

@@ -20,26 +20,22 @@ export default function Card({ info }: { info: IAnalysis }) {
       <button onClick={flipCard} className="flip-card-inner w-full">
         <div className="flip-card-front gas he">
           <div className="gas he col-span-1 h-[10.5rem] overflow-hidden">
-            <div className="flex h-full justify-between">
-              <div className="grid w-48 items-center text-center">
-                <h2 className="bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-3xl font-bold text-transparent">
+            <div className="flex h-5/6 justify-between">
+              <div className="grid w-52 items-center text-center">
+                <h2 className="mt-3 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-3xl font-bold text-transparent">
                   {info.buy_type}
                 </h2>
-                <ul className="prose-base -mt-2 leading-normal text-white">
-                  <li className="text-2xl">{`${info.popularity}${
-                    info.popularity.length < 9 ? "番人気" : ""
-                  }`}</li>
-                  <div className="relative left-7 mx-auto grid grid-cols-3 text-sm">
-                    <div className="text-right">回収額：</div>
-                    <div className="col-span-2 ml-3 text-left">{`${info.payback.toLocaleString()} 円`}</div>
-                    <div className="text-right">MVP額：</div>
-                    <div className="col-span-2 ml-3 text-left">{`${info.payback_mvp.toLocaleString()} 円`}</div>
-                    <div className="text-right">MVP馬：</div>
-                    <div className="col-span-2 ml-3 text-left">
-                      {info.order1}
-                    </div>
-                  </div>
-                </ul>
+                <div className="my-2 text-2xl text-white">{`${info.popularity}${
+                  info.popularity.length < 10 ? "番人気" : ""
+                }`}</div>
+                <div className="relative left-4 mx-auto grid grid-cols-3 text-sm text-white">
+                  <div className="text-right">回収額：</div>
+                  <div className="col-span-2 ml-3 text-left">{`${info.payback.toLocaleString()} 円`}</div>
+                  <div className="text-right">MVP額：</div>
+                  <div className="col-span-2 ml-3 text-left">{`${info.payback_mvp.toLocaleString()} 円`}</div>
+                  <div className="text-right">MVP馬：</div>
+                  <div className="col-span-2 ml-3 text-left">{info.order1}</div>
+                </div>
               </div>
               <div className="my-auto">
                 <WebVitals
@@ -55,7 +51,7 @@ export default function Card({ info }: { info: IAnalysis }) {
         <div className="flip-card-back gas pu">
           <div className="gas pu col-span-1 h-[10.5rem] overflow-hidden">
             <div className="flex h-full justify-between">
-              <div className="grid w-48 items-center text-center">
+              <div className="grid w-52 items-center text-center">
                 <h2 className="bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-3xl font-bold text-transparent">
                   {info.buy_type}
                 </h2>

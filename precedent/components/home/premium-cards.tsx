@@ -60,10 +60,10 @@ export default function PremiumCards({ range }: { range: string }) {
       {analysis?.map((info) => <Card key={info.buy_type} info={info} />) ??
         //空のカード表示
         empytCards.map((info) => (
-          <div key={info} className={`flip-card front-flip`}>
+          <div key={info} className="flip-card front-flip">
             <div className="flip-card-inner">
               <div className="flip-card-front gas he">
-                <div className={`w-full`}>
+                <div className="w-full">
                   <div className="gas he col-span-1 h-[10.5rem] overflow-hidden">
                     <div className="my-auto">
                       <LoadingCircle />

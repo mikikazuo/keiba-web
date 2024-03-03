@@ -20,11 +20,11 @@ export default function BeginnerCard() {
         <div className="flip-card-front gas he">
           <div className="gas he col-span-1 h-[10.5rem] overflow-hidden">
             <div className="flex h-full justify-between">
-              <div className="grid w-48 items-center text-center">
+              <div className="grid w-52 items-center text-center">
                 <h2 className="rad rounded-xl border-2 border-sky-500 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
                   {"馬券名"}
                 </h2>
-                <ul className="prose-base -mt-2 whitespace-pre leading-normal text-white">
+                <ul className="prose-base whitespace-pre leading-normal text-white">
                   <li className="rounded-xl border-2 border-sky-500 text-sm">{`回収率が最大になる人気番`}</li>
                   <li className="rounded-xl border-2 border-sky-500 text-xs">{`トータルの回収額\n(毎レース100円購入時)`}</li>
                   <li className="rounded-xl border-2 border-sky-500 text-xs">{`購入対象レース内での最大回収額`}</li>
@@ -41,11 +41,11 @@ export default function BeginnerCard() {
         <div className="flip-card-back gas pu">
           <div className="gas pu col-span-1 h-[10.5rem] overflow-hidden">
             <div className="flex h-full justify-between">
-              <div className="grid w-48 items-center text-center">
-                <h2 className="my-2 rounded-xl border-2 border-sky-500 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
+              <div className="grid w-52 items-center text-center">
+                <h2 className="rounded-xl border-2 border-sky-500 bg-gradient-to-br from-white to-stone-200 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-medium">
                   {"馬券名"}
                 </h2>
-                <ul className="prose-sm -mt-2 leading-normal text-white">
+                <ul className="prose-sm leading-normal text-white">
                   <li className="whitespace-pre text-xs">{`以下、購入対象レース内で\n最大回収額となったレース情報`}</li>
                   <li className="rounded-xl border-2 border-sky-500">{`レース日`}</li>
                   <li className="rounded-xl border-2 border-sky-500">{`レース場所`}</li>

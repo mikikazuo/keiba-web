@@ -12,7 +12,8 @@ export default function WebVitals({
 }) {
   return (
     <div className="relative">
-      <motion.svg viewBox="0 0 140 140" width={135} height={150}>
+      {/* 値と円グラフの座標を動かす場合はmotion.svgのwidth,heightを変更する */}
+      <motion.svg viewBox="0 0 140 140" width={135} height={170}>
         <motion.circle
           initial={{ pathLength: 0 }}
           animate={{ pathLength: ratio > 1 ? 1 : ratio }}
@@ -30,7 +31,7 @@ export default function WebVitals({
           stroke={color.match("green") ? "#22C55E" : "#7548FA"}
         />
       </motion.svg>
-      <div className={"absolute inset-x-0 top-8 " + color}>{title}</div>
+      <div className={"absolute inset-x-0 top-11 " + color}>{title}</div>
       <CountingNumbers
         value={ratio * 100}
         decimal={color.match("green") ? 1 : 100}
@@ -40,7 +41,7 @@ export default function WebVitals({
           color
         }
       />
-      <div className={"absolute left-[3.8rem] top-[5.9rem] text-xl " + color}>
+      <div className={"absolute left-[3.8rem] top-[6.4rem] text-xl " + color}>
         %
       </div>
     </div>

@@ -165,7 +165,7 @@ export default function Page() {
             ログイン済み
           </div>
         ) : logined === undefined ? (
-          <div className="mx-auto my-12 flex w-12">
+          <div className="my-12 flex justify-center">
             <LoadingCircle />
           </div>
         ) : (
@@ -175,7 +175,7 @@ export default function Page() {
                 href="/terms"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-300 underline hover:text-blue-500"
+                className="ml-4 text-blue-300 underline hover:text-blue-500"
               >
                 利用規約
               </a>
@@ -285,12 +285,12 @@ export default function Page() {
         >
           ２．期間（自動更新）
         </h2>
-        <div className="my-5 text-white">期間を選択してください。</div>
+        <div className="my-5 ml-4 text-white">期間を選択してください。</div>
         <div className="flex justify-around text-white">
           <button
             className={`${
               payRange == "month" ? "bg-white text-black" : "bg-black"
-            } group relative max-w-sm rounded-lg border border-gray-200 p-6 shadow transition-all hover:bg-white hover:text-black`}
+            } group relative w-40 max-w-sm rounded-lg border border-gray-200 py-6 shadow transition-all hover:bg-white hover:text-black`}
             onClick={() => setPayRange("month")}
           >
             <h5 className="mb-2 text-2xl font-bold tracking-tight">１ヶ月</h5>
@@ -305,7 +305,7 @@ export default function Page() {
           <button
             className={`${
               payRange == "year" ? "bg-white text-black" : "bg-black"
-            } group relative max-w-sm rounded-lg border border-gray-200 p-6 shadow transition-all hover:bg-white hover:text-black`}
+            } group relative w-40 max-w-sm rounded-lg border border-gray-200 py-6 shadow transition-all hover:bg-white hover:text-black`}
             onClick={() => setPayRange("year")}
           >
             <div className="absolute right-[-20px] top-[-15px] rounded-full border border-green-300 bg-black/60 p-1.5 px-4 text-sm text-white backdrop-blur-xl transition-all">
@@ -328,16 +328,17 @@ export default function Page() {
         >
           ３．支払方法
         </h2>
-        <div className="my-5 text-white">支払方法を選択してください。</div>
+        <div className="my-5 ml-4 text-white">支払方法を選択してください。</div>
         <div className="flex justify-around text-white">
           <button
             className={`${
               payMethod == "credit" ? "bg-white text-black" : "bg-black"
-            } relative rounded-lg border border-gray-200 bg-black p-6 shadow transition-all  hover:bg-white hover:text-black`}
+            } relative w-44 rounded-lg border border-gray-200 bg-black py-6 shadow transition-all  hover:bg-white hover:text-black`}
             onClick={() => setPayMethod("credit")}
           >
-            <h5 className="mb-2 text-2xl font-bold">クレジットカード</h5>
+            <h5 className="mb-5 text-lg font-bold">クレジットカード</h5>
             <div className="mx-auto flex w-40 justify-around">
+              {/* flex内では他の画像サイズによって比率が帰られてしまうためclassでピクセル指定を追加で行った */}
               <Image
                 src="/jcb-logo.gif"
                 alt="JCBLogo"
