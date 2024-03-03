@@ -8,7 +8,8 @@ from firebase_functions import https_fn, options
 from google.cloud.firestore_v1 import FieldFilter
 
 app = initialize_app()
-options.set_global_options(region=options.SupportedRegion.ASIA_EAST1)
+# リージョン指定　コマンドで指定する場合なくていい　参考　https://zenn.dev/singularity/articles/deploy_firebase_functions_in_different_resion
+options.set_global_options(region=options.SupportedRegion.ASIA_NORTHEAST1)
 
 
 # class syntax

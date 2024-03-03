@@ -1,6 +1,8 @@
 firebase initでfunctionを初期化
 
-デプロイは firebase deploy でok（functionしかないため）
+デプロイは
+gcloud functions deploy subscription --gen2 --runtime=python311 --region=asia-northeast1 --source=. --entry-point=hello_http --trigger-http --allow-unauthenticated
+
 
 functionsフォルダがデフォルトの場合生成されるが削除
 

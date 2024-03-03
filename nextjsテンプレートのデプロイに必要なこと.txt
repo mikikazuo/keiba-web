@@ -10,3 +10,6 @@ import prisma from "@/lib/prisma";のコメントアウト
 staticフォルダーの削除（非推奨となったため　参考　https://nextjs.org/docs/messages/static-dir-deprecated）
 
 firebaseでサポートされてるnextjsのバージョンは13.4.7 参考　https://firebase.google.com/docs/hosting/frameworks/nextjs?hl=ja
+
+firebase initで"In which region would you like to host server-side content, if applicable?"と聞かれるが候補内に東京リージョンがないのは現状サポートされてないため
+firebase.jsonの"frameworksBackend"で直接指定しても不可能
