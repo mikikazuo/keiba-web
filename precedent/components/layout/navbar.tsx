@@ -90,8 +90,14 @@ export default function Navbar() {
           <div />
           <div className="flex">
             <Link
+              href="/guide"
+              className="mr-2 inline-block rounded-full border border-white bg-black/60 p-1.5 px-3 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+            >
+              逆張り星人とは
+            </Link>
+            <Link
               href="/price"
-              className="mr-3 inline-block rounded-full border border-white bg-black/60 p-1.5 px-4 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+              className="mr-2 inline-block rounded-full border border-white bg-black/60 p-1.5 px-3 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
             >
               有料プラン登録
             </Link>
@@ -103,7 +109,7 @@ export default function Navbar() {
               </div>
             ) : (
               <button
-                className="rounded-full border border-white bg-black/60 p-1.5 px-4 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+                className="rounded-full border border-white bg-black/60 p-1.5 px-3 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
                 onClick={() => setShowSignInModal(true)}
               >
                 ログイン

@@ -14,9 +14,8 @@ import {
 import { doc, getDoc } from "firebase/firestore";
 import { ArrowRightCircle } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-
 const actionCodeSettings = {
   // URL you want to redirect back to. The domain (www.example.com) for this
   // URL must be in the authorized domains list in the Firebase Console.
@@ -29,6 +28,10 @@ const actionCodeSettings = {
 };
 
 export default function Page() {
+  React.useEffect(() => {
+    document.title = "逆張り星人｜有料プラン登録";
+  }, []);
+
   const [signInClicked, setSignInClicked] = useState(false);
   const [sendEmail, setSendEmail] = useState(false);
   type RangeType = undefined | "month" | "year";
@@ -139,17 +142,16 @@ export default function Page() {
         className="w-full max-w-2xl animate-fade-up text-gray-300"
         style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
       >
-        <h1 className="my-8 text-center text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
+        <h1 className="my-8 text-center text-3xl font-bold text-white md:text-4xl">
           有料プラン登録
-          {/* <span class="text-primary dark:text-white">reimagination.</span> */}
         </h1>
-        <h1 className="mb-8 mt-12 text-center text-xl font-bold text-gray-900 dark:text-white md:text-2xl">
+        <h1 className="mb-8 mt-12 text-center text-xl font-bold text-white md:text-2xl">
           長期的な分析が可能へ！
         </h1>
-        <h1 className=" my-4 text-center font-bold text-gray-900 dark:text-white md:text-xl">
+        <h1 className=" my-4 text-center font-bold text-white md:text-xl">
           直近１ヶ月・３ヶ月分析が閲覧可能。
         </h1>
-        <h1 className="md:text my-4 text-center font-bold text-gray-900 dark:text-white md:text-xl">
+        <h1 className="md:text my-4 text-center font-bold text-white md:text-xl">
           短期と長期を組み合わせた
           <br className="md:hidden" />
           総合的な分析で回収率の向上へ。

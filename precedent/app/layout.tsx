@@ -14,12 +14,12 @@ import "./globals.css";
 import "./neon.scss";
 
 export const metadata: Metadata = {
-  title: "逆張り星人 - 競馬分析攻略",
+  title: "逆張り星人｜競馬分析攻略",
   description:
     "〇〇番人気を買い続けるだけで回収率100%越え！？最新の人気ベースの最大回収率や逆境を覆す穴馬がまるわかり！毎週更新",
   twitter: {
     card: "summary_large_image",
-    title: "逆張り星人 - 競馬分析攻略",
+    title: "逆張り星人｜競馬分析攻略",
     description:
       "〇〇番人気を買い続けるだけで回収率100%越え！？最新の人気ベースの最大回収率や逆境を覆す穴馬ががまるわかり！毎週更新",
     creator: "@keibareverse",

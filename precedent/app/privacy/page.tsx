@@ -1,3 +1,8 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "逆張り星人｜プライバシーポリシー",
+};
 export default function Page() {
   return (
     <>

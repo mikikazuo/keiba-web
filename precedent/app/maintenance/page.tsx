@@ -2,9 +2,14 @@
 import { Twitter } from "@/components/shared/icons";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import React from "react";
 import "../../app/neon.scss";
 
 export default function Page() {
+  React.useEffect(() => {
+    document.title = "逆張り星人｜メンテナンス中";
+  }, []);
+
   return (
     <>
       <div className="z-10 w-full max-w-xl flex-col justify-between">

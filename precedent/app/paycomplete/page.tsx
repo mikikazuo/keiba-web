@@ -83,10 +83,10 @@ export default function Page() {
         className="mx-6 max-w-7xl animate-fade-up text-gray-300"
         style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
       >
-        <h1 className="my-8 text-center text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
+        <h1 className="my-8 text-center text-3xl font-bold text-white md:text-4xl">
           支払完了
         </h1>
-        <h1 className="mb-8 mt-12 text-center font-bold text-gray-900 dark:text-white md:text-xl">
+        <h1 className="mb-8 mt-12 text-center font-bold text-white md:text-xl">
           有料プランのご登録ありがとうございます。
           {/* <br />
           支払完了メールを送信しました。

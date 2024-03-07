@@ -65,10 +65,10 @@ export default function Page() {
         className="mx-6 max-w-7xl animate-fade-up text-gray-300"
         style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
       >
-        <h1 className="my-8 text-center text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
+        <h1 className="my-8 text-center text-3xl font-bold text-white md:text-4xl">
           登録情報
         </h1>
-        <h1 className="mb-8 mt-12 grid grid-flow-col grid-rows-2 gap-2 text-center font-bold text-gray-900 dark:text-white md:text-xl">
+        <h1 className="mb-8 mt-12 grid grid-flow-col grid-rows-2 gap-2 text-center font-bold text-white md:text-xl">
           <div className="flex flex-row-reverse">直近の支払済み期間：</div>
           <div className="flex flex-row-reverse"> 次回の支払予定日：</div>
           <div>{start && end ? `${start} ～ ${end}` : start ?? " . . ."}</div>
