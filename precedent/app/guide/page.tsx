@@ -27,8 +27,10 @@ export default function Page() {
           width={600}
           height={300}
         />
-        <p className="mt-5 text-center font-bold md:text-xl">
-          たくさんの人に選ばれている馬は人気馬となり、リターンが少なくなるっぽ。
+        <p className=":text-xl mt-5 text-center font-bold">
+          たくさんの人に選ばれている馬は人気馬となり、
+          <br className="sm:hidden" />
+          リターンが少なくなるっぽ。
         </p>
         <p className="mt-8 text-left text-xl font-bold md:text-2xl">
           ◇ そこで逆張り戦略
@@ -41,10 +43,17 @@ export default function Page() {
           height={300}
         />
         <p className="mt-5 text-center font-bold md:text-xl">
-          不人気馬を買い続けることでトータルでプラス回収を目指すぽ～☆。
+          不人気馬を買い続けることで
+          <br className="sm:hidden" />
+          トータルでプラス回収を目指すぽ～☆。
         </p>
         <p className="mb-4 mt-8 text-left text-xl font-bold md:text-2xl">
-          ◇ 〇〇番人気を買い続けた結果を毎週更新
+          ◇ 〇〇番人気を
+          <span className="sm:hidden">
+            <br />
+            &emsp;&nbsp;
+          </span>
+          買い続けた結果を毎週更新
         </p>
         <Image
           className=""
@@ -54,7 +63,7 @@ export default function Page() {
           height={300}
         />
         <p className="mt-5 text-center font-bold md:text-xl">
-          データ結果として出ているから安心して逆張りできるっぽ。
+          データ結果として出ているから安心して逆張り！
         </p>
       </div>
     </>
