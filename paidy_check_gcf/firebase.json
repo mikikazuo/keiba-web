@@ -1,0 +1,14 @@
+{
+  "functions": [
+    {
+      "source": ".",
+      "codebase": "paidy",
+      "ignore": [
+        "venv",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ]
+}
