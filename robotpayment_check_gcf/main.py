@@ -2,8 +2,7 @@ from datetime import datetime, timedelta, timezone
 from enum import Enum
 
 from dateutil.relativedelta import relativedelta
-from firebase_admin import firestore
-from firebase_admin import initialize_app
+from firebase_admin import initialize_app, firestore
 from firebase_functions import https_fn, options
 from google.cloud.firestore_v1 import FieldFilter
 
@@ -21,7 +20,7 @@ class Mode(Enum):
 
 
 @https_fn.on_request()
-def subscription(req: https_fn.Request) -> https_fn.Response:
+def robotpay_subscription(req: https_fn.Request) -> https_fn.Response:
     """
     サブスクペイの決済登録 もしくは 自動更新
     :param req:
@@ -45,7 +44,7 @@ def subscription(req: https_fn.Request) -> https_fn.Response:
     db = firestore.client()
     if mode is Mode.NEW:
         db.collection("subscription").document(subscription_id).set({"paymentId": payment_id})
-        return https_fn.Response(f"Message with ID {subscription_id} added.")
+        return https_fn.Response(f"Message with subscriptionId {subscription_id} added.")
     else:
         docs = list(
             db.collection("users")
@@ -53,17 +52,17 @@ def subscription(req: https_fn.Request) -> https_fn.Response:
             .stream()
         )
         if len(docs) != 1:
-            return https_fn.Response(f"ID {subscription_id} ERR.")
+            return https_fn.Response(f"subscriptionId {subscription_id} not found.")
 
-        for doc in docs:
-            if mode is Mode.UPDATE:
-                start_date = datetime.now(timezone(timedelta(hours=9)))
-                end_date = start_date + relativedelta(month=doc.to_dict()['payMonthRange'])
-                db.collection("users").document(doc.id).set({"paymentId": payment_id,
-                                                             "subscriptionStartDate": start_date,
-                                                             "subscriptionEndDate": end_date,
-                                                             "nextPayDate": end_date}, merge=True)
-                return https_fn.Response(f"Message with uid {doc.id}, ID {subscription_id} updated.")
-            else:
-                db.collection("users").document(doc.id).set({"nextPayDate": None}, merge=True)
-                return https_fn.Response(f"Message with uid {doc.id}, ID {subscription_id} stopped.")
+        doc = docs[0]
+        if mode is Mode.UPDATE:
+            start_date = datetime.now(timezone(timedelta(hours=9)))
+            end_date = start_date + relativedelta(months=doc.to_dict()['payMonthRange'])
+            db.collection("users").document(doc.id).set({"paymentId": payment_id,
+                                                         "subscriptionStartDate": start_date,
+                                                         "subscriptionEndDate": end_date,
+                                                         "nextPayDate": end_date}, merge=True)
+            return https_fn.Response(f"Message with uid {doc.id}, subscriptionId {subscription_id} updated.")
+        else:
+            db.collection("users").document(doc.id).set({"nextPayDate": None}, merge=True)
+            return https_fn.Response(f"Message with uid {doc.id}, subscriptionId {subscription_id} stopped.")

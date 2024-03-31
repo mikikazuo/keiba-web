@@ -1,8 +1,8 @@
 firebase initでfunctionを初期化
 
 デプロイは
-gcloud functions deploy subscription --gen2 --runtime=python311 --region=asia-northeast1 --source=. --entry-point=hello_http --trigger-http --allow-unauthenticated
-
+gcloud functions deploy robotpay_subscription --gen2 --runtime=python311 --region=asia-northeast1 --source=. --entry-point=hello_http --trigger-http --allow-unauthenticated
+かfirebase deploy
 
 functionsフォルダがデフォルトの場合生成されるが削除
 
