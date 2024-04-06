@@ -29,12 +29,20 @@ export default function Page() {
   const paymentId = searchParams.get("gid");
   /** 決済成功かどうか */
   const isSuccess = searchParams.get("rst") == "1";
+  const price = Number(searchParams.get("ta"));
   /**
    * 購読期間（〇ヶ月）
    * 金額から判別する
    */
-  const payMonthRange = Number(searchParams.get("ta")) < 1000 ? 1 : 12;
+  const payMonthRange = price < 1000 ? 1 : 12;
   useEffect(() => {
+    //paidy用遷移
+    if (isSuccess && !subscriptionId && !paymentId) {
+      setIsPaid(true);
+      return;
+    }
+
+    //robot payment用
     if (!subscriptionId || !paymentId || !isSuccess) {
       setIsPaid(false);
       return;
@@ -43,6 +51,8 @@ export default function Page() {
     const timer = setInterval(async () => {
       const docRef = doc(db, "subscription", subscriptionId);
       const docSnap = await getDoc(docRef);
+      //robot paymentの場合でクエリパラメータ経由ではクライアント側で改ざんできてしまうため裏でGCFを挟んで認証を行っている。
+      //また、ユーザ情報との紐づけのため
       if (docSnap.exists() && docSnap.data().paymentId == paymentId) {
         await deleteDoc(doc(db, "subscription", subscriptionId));
         clearInterval(timer);
@@ -119,7 +129,7 @@ export default function Page() {
               <br />
               有料プランがご利用いただけない場合、恐れ入りますが、
               <br />
-              reversekeiba@gmail.comまでご連絡ください。
+              info@reversekeiba.comまでご連絡ください。
             </h5>
           </div>
         )}

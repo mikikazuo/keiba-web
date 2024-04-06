@@ -1,7 +1,11 @@
 "use client";
-
 import { Google, LoadingCircle, LoadingDots } from "@/components/shared/icons";
-import { auth, db, provider } from "@/lib/firebaseSDK/firebase-config";
+import {
+  auth,
+  db,
+  functions,
+  provider,
+} from "@/lib/firebaseSDK/firebase-config";
 import { addUser } from "@/lib/login/addNewUser";
 import {
   getRedirectResult,
@@ -12,8 +16,13 @@ import {
   signInWithRedirect,
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { httpsCallable } from "firebase/functions";
+import { motion } from "framer-motion";
 import { ArrowRightCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Script from "next/script";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 const actionCodeSettings = {
@@ -26,27 +35,94 @@ const actionCodeSettings = {
   // This must be true.
   handleCodeInApp: true,
 };
+declare global {
+  interface Window {
+    Paidy: any;
+  }
+}
 
 export default function Page() {
   React.useEffect(() => {
     document.title = "逆張り星人｜有料プラン登録";
   }, []);
 
+  const router = useRouter();
   const [signInClicked, setSignInClicked] = useState(false);
   const [sendEmail, setSendEmail] = useState(false);
-  type RangeType = undefined | "month" | "year";
-  const [payRange, setPayRange] = useState<RangeType>(undefined);
-  type MethodType = undefined | "credit";
+  type RangeType = undefined | 1 | 12;
+  const [payMonthRange, setPayRange] = useState<RangeType>(undefined);
+  type MethodType = undefined | "credit" | "paidy";
   const [payMethod, setPayMethod] = useState<MethodType>(undefined);
   /** nullは未ログイン、undefinedはログインかどうか確認中 */
   const [logined, setLogined] = useState<boolean | undefined>(undefined);
   const [eMail, setEMail] = useState("");
   /** 有料プラン期間かどうか */
   const [isPaid, setIsPaid] = useState<boolean | undefined>(undefined);
+
+  //paidy用必要情報
+  // 入力フォームの型定義
+  type PaidyFormDaata = {
+    first_name: string;
+    last_name: string;
+    zip: string;
+  };
+
+  const {
+    register: paidyRegister,
+    handleSubmit: paidyHandleSubmit,
+    formState: { errors: paidyErrors },
+  } = useForm<PaidyFormDaata>();
+
+  const onPaidySubmit = paidyHandleSubmit((data) => {
+    let zip = data.zip;
+    if (zip.length === 7 && !zip.includes("-"))
+      zip = zip.slice(0, 3) + "-" + zip.slice(3);
+
+    const config = {
+      api_key: "pk_live_2cnjl64gj8sd0heo4nv0uiebib",
+      logo_url: "https://reversekeiba.com/logo.png",
+      closed: function (callbackData: {
+        id: string;
+        create_at: string;
+        status: string;
+      }) {
+        const addMessage = httpsCallable(functions, "paidy_first_subscription");
+        addMessage({
+          subscription_id: callbackData.id,
+          pay_month_range: payMonthRange,
+          zip: zip,
+          uid: auth.currentUser?.uid,
+        }).then((res) => {
+          const data = res.data as { result: string };
+          if (data.result != "ok") {
+            router.push("/paycomplete?rst=2");
+            throw new Error(`error`);
+          }
+          router.push("/paycomplete?rst=1");
+        });
+      },
+      token: {
+        wallet_id: "default",
+        type: "recurring",
+      },
+    };
+
+    const paidyHandler = window.Paidy.configure(config);
+    const payload = {
+      store_name: "逆張り星人",
+      buyer: {
+        email: auth.currentUser?.email,
+        name1: `${data.first_name}　${data.last_name}`,
+      },
+      metadata: { uid: auth.currentUser?.uid },
+    };
+    paidyHandler.launch(payload);
+  });
+
   /** 必要な選択項目を選択したかどうか */
   const isNotPayable =
     logined != true ||
-    payRange == undefined ||
+    payMonthRange == undefined ||
     payMethod == undefined ||
     isPaid != false;
 
@@ -90,7 +166,6 @@ export default function Page() {
         });
     }
   });
-
   useEffect(() => {
     if (
       !auth.currentUser &&
@@ -136,8 +211,15 @@ export default function Page() {
     }
   }, [auth]);
 
+  /** paidy用入力フォームアニメーション */
+  const variants = {
+    open: { opacity: 1, height: "auto" },
+    closed: { opacity: 0, height: 0 },
+  };
+
   return (
     <>
+      <Script src="https://apps.paidy.com/" />
       <div
         className="w-full max-w-2xl animate-fade-up text-gray-300"
         style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
@@ -291,14 +373,14 @@ export default function Page() {
         <div className="flex justify-around text-white">
           <button
             className={`${
-              payRange == "month" ? "bg-white text-black" : "bg-black"
+              payMonthRange == 1 ? "bg-white text-black" : "bg-black"
             } group relative w-40 max-w-sm rounded-lg border border-gray-200 py-6 shadow transition-all hover:bg-white hover:text-black`}
-            onClick={() => setPayRange("month")}
+            onClick={() => setPayRange(1)}
           >
             <h5 className="mb-2 text-2xl font-bold tracking-tight">１ヶ月</h5>
             <p
               className={`${
-                payRange == "month" ? "text-gray-500" : ""
+                payMonthRange == 1 ? "text-gray-500" : ""
               } font-normal text-gray-300 group-hover:text-gray-500`}
             >
               980円(税込)/月
@@ -306,18 +388,18 @@ export default function Page() {
           </button>
           <button
             className={`${
-              payRange == "year" ? "bg-white text-black" : "bg-black"
+              payMonthRange == 12 ? "bg-white text-black" : "bg-black"
             } group relative w-40 max-w-sm rounded-lg border border-gray-200 py-6 shadow transition-all hover:bg-white hover:text-black`}
-            onClick={() => setPayRange("year")}
+            onClick={() => setPayRange(12)}
           >
-            <div className="absolute right-[-20px] top-[-15px] rounded-full border border-green-300 bg-black/60 p-1.5 px-4 text-sm text-white backdrop-blur-xl transition-all">
+            <div className="absolute right-[-10px] top-[-15px] rounded-full border border-green-300 bg-black/60 p-1.5 px-4 text-sm text-white backdrop-blur-xl transition-all">
               <p>1,960円お得</p>
             </div>
 
             <h5 className="mb-2 text-2xl font-bold tracking-tight">年間</h5>
             <p
               className={`${
-                payRange == "year" ? "text-gray-500" : ""
+                payMonthRange == 12 ? "text-gray-500" : ""
               } font-normal text-gray-300 group-hover:text-gray-500`}
             >
               9,800円(税込)/年
@@ -335,7 +417,7 @@ export default function Page() {
           <button
             className={`${
               payMethod == "credit" ? "bg-white text-black" : "bg-black"
-            } relative w-44 rounded-lg border border-gray-200 bg-black py-6 shadow transition-all  hover:bg-white hover:text-black`}
+            } relative w-44 rounded-lg border border-gray-200 bg-black py-6 shadow transition-all hover:bg-white hover:text-black`}
             onClick={() => setPayMethod("credit")}
           >
             <h5 className="mb-5 text-lg font-bold">クレジットカード</h5>
@@ -364,42 +446,164 @@ export default function Page() {
               />
             </div>
           </button>
-        </div>
-        <div className="mt-12 flex flex-row-reverse text-white">
-          <form
-            action="https://credit.j-payment.co.jp/link/creditcard"
-            method="POST"
+          <button
+            className={`${
+              payMethod == "paidy" ? "bg-white text-black" : "bg-black"
+            } group relative w-44 rounded-lg border border-gray-200 bg-black shadow transition-all  hover:bg-white hover:text-black`}
+            onClick={() => setPayMethod("paidy")}
           >
-            <input type="hidden" name="aid" value="127241" />
-            <input
-              type="hidden"
-              name="iid"
-              value={payRange == "month" ? "month_plan" : "year_plan"}
-            />
-            <input type="hidden" name="em" value={eMail} />
+            <h5 className="my-3 ml-3 font-bold">あと払い（ペイディ）</h5>
+            <div className="mx-auto flex justify-around">
+              <Image
+                className={`h-auto w-36 group-hover:visible ${
+                  payMethod == "paidy" ? "visible" : "invisible"
+                }`}
+                src="/paidy-logo-light.png"
+                alt="paidyLogo"
+                width={130}
+                height={0}
+              />
+              <Image
+                className={`absolute h-auto w-36 group-hover:invisible ${
+                  payMethod == "paidy" ? "invisible" : "visible"
+                }`}
+                src="/paidy-logo-dark.png"
+                alt="paidyLogo"
+                width={130}
+                height={0}
+              />
+            </div>
+          </button>
+        </div>
+        <div className="mr-6 mt-5 text-right">
+          ※「ペイディ」については
+          <Link
+            href="https://paidy.com/landing/"
+            className="text-blue-400"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            こちら
+          </Link>
+        </div>
+
+        {/* paidyでローカルでテストする際はコントロールパネルの設定を変更するように */}
+        <form
+          onSubmit={payMethod == "paidy" ? onPaidySubmit : () => {}}
+          action={
+            payMethod == "credit"
+              ? "https://credit.j-payment.co.jp/link/creditcard"
+              : ""
+          }
+          method="POST"
+        >
+          {/* robot paymentテスト決済時にエラーが出る場合は過去の決済を消して上限？を回復させるように */}
+          <input type="hidden" name="aid" value="127241" />
+          <input
+            type="hidden"
+            name="iid"
+            value={payMonthRange == 1 ? "month_plan" : "year_plan"}
+          />
+          <input type="hidden" name="em" value={eMail} />
+
+          <motion.div
+            className={payMethod == "paidy" ? "visible" : "invisible"}
+            variants={variants}
+            initial="closed"
+            animate={payMethod == "paidy" ? "open" : "closed"}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="ml-6">
+              <label
+                htmlFor="first_name"
+                className="mb-2 block text-sm font-medium leading-6"
+              >
+                名前
+              </label>
+              <label
+                htmlFor="first_name"
+                className="mr-2 text-sm font-medium leading-6"
+              >
+                姓：
+              </label>
+              <input
+                maxLength={30}
+                id="first_name"
+                type="text"
+                className="w-28 rounded-md border-0 px-3 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...paidyRegister("first_name", { required: true })}
+              />
+              <label
+                htmlFor="last_name"
+                className="ml-4 mr-2 text-sm font-medium leading-6"
+              >
+                名：
+              </label>
+              <input
+                maxLength={30}
+                id="last_name"
+                type="text"
+                className="w-28 rounded-md border-0 px-3 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...paidyRegister("last_name", { required: true })}
+              />
+              {paidyErrors.first_name && (
+                <div className="text-red-500">姓を入力してください。</div>
+              )}
+              {paidyErrors.last_name && (
+                <div className="text-red-500">名を入力してください。</div>
+              )}
+              <div className="mt-5 w-36">
+                <label
+                  htmlFor="zip"
+                  className="my-2 text-sm font-medium leading-6"
+                >
+                  郵便番号
+                </label>
+                <div className="mt-2 rounded-md shadow-sm">
+                  <input
+                    id="zip"
+                    type="tel"
+                    minLength={7}
+                    maxLength={8}
+                    className="w-36 rounded-md border-0 py-1.5 pl-3  text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    {...paidyRegister("zip", {
+                      required: "郵便番号を入力してください。",
+                      pattern: {
+                        value: /^[0-9]{3}-?[0-9]{4}$/,
+                        message:
+                          "郵便番号は数字3桁-数字4桁の形式で入力してください（例：123-4567）",
+                      },
+                    })}
+                  />
+                </div>
+              </div>
+              <div className="text-red-500">{paidyErrors.zip?.message}</div>
+            </div>
+          </motion.div>
+          <div className="flex justify-end">
             <button
               className={`${
                 isNotPayable ? "cursor-not-allowed opacity-50" : ""
-              } mr-2 flex w-48 rounded-lg border border-gray-200 bg-black p-4 shadow transition-all hover:bg-white hover:text-black`}
+              } mr-2 mt-4 flex w-48 rounded-lg border border-gray-200 bg-black p-4 shadow transition-all hover:bg-white hover:text-black`}
               type="submit"
               name="submit"
               value="購入"
               disabled={isNotPayable}
             >
-              <h5 className="mr-3 w-full text-2xl font-bold">支払へ進む</h5>
+              <h5 className="mr-3 w-full text-2xl font-bold">
+                {logined != true ? "未ログイン" : "支払へ進む"}
+              </h5>
               <ArrowRightCircle className="h-8 w-8" />
             </button>
-          </form>
-          {isPaid ? (
-            <div className="mr-2 text-sm text-red-400">
-              現在、お客様は支払済みの有料プラン期間内です。
-              <br />
-              期間外後にお試しください。
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
+          </div>
+        </form>
+        {isPaid && (
+          <div className="mr-2 text-sm text-red-400">
+            現在、お客様は支払済みの有料プラン期間内です。
+            <br />
+            期間外後にお試しください。
+          </div>
+        )}
       </div>
     </>
   );

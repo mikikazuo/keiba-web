@@ -53,7 +53,7 @@ export default function UserDropdown({ signOut }: { signOut: () => void }) {
       >
         <button
           onClick={() => setOpenPopover(!openPopover)}
-          className="items-center rounded-full border border-gray-300 bg-black/60 p-1.5 px-4  text-white backdrop-blur-xl transition-all duration-75 hover:bg-white hover:text-black focus:outline-none active:scale-95"
+          className="items-center rounded-full border border-gray-300 bg-black/60 p-1.5 px-1 text-white backdrop-blur-xl transition-all duration-75 hover:bg-white hover:text-black focus:outline-none active:scale-95"
         >
           アカウント情報
           {/* <Image

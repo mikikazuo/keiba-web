@@ -200,7 +200,7 @@ export default function Page() {
         <div className="ml-6 text-sm md:text-base">
           本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。
           <br />
-          Eメールアドレス：reversekeiba@gmail.com
+          Eメールアドレス：info@reversekeiba.com
         </div>
         <p className="mb-3 mt-5 text-right">2023年9月28日更新</p>
       </div>

@@ -9,7 +9,7 @@ import { LoadingCircle } from "../shared/icons";
 import Card from "./card";
 
 const hideCard = (
-  <div className="repeat mt-10 grid w-11/12 max-w-screen-xl animate-fade-up gap-y-10">
+  <div className="repeat mt-10 grid w-full max-w-screen-xl animate-fade-up gap-y-10">
     <motion.div className={`flip-card`}>
       <div className="flip-card-inner">
         <div className="flip-card-front gas xe">
@@ -56,7 +56,7 @@ export default function PremiumCards({ range }: { range: string }) {
 
   if (isPremium == false) return hideCard;
   return (
-    <div className="repeat mt-10 grid w-11/12 max-w-screen-xl animate-fade-up gap-y-10">
+    <div className="repeat mt-10 grid w-full max-w-screen-xl animate-fade-up gap-y-10">
       {analysis?.map((info) => <Card key={info.buy_type} info={info} />) ??
         //空のカード表示
         empytCards.map((info) => (

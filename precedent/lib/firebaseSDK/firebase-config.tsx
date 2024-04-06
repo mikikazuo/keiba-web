@@ -1,7 +1,7 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-
+import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
 const firebaseConfig = {
   apiKey: "AIzaSyAoLSR96ukfHMpRvy9_Ln_SDcDYunJYkEQ",
   authDomain:
@@ -19,5 +19,8 @@ const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
-
-export { auth, db, provider };
+const functions = getFunctions(app, "asia-northeast1");
+//エミュレート時のCLoud Functions用
+if (process.env.NODE_ENV !== "production")
+  connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+export { auth, db, functions, provider };

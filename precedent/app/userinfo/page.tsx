@@ -2,7 +2,7 @@
 
 import { auth, db } from "@/lib/firebaseSDK/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import type { Metadata } from "next";
 import { useEffect, useState } from "react";
 
@@ -24,9 +24,20 @@ export default function Page() {
   const [subscriptionId, setSubscriptionId] = useState<string | undefined>(
     undefined,
   );
+  type MethodType = undefined | "credit" | "paidy";
+  const [payMethod, setPayMethod] = useState<MethodType>(undefined);
   const [paymentId, setPaymentId] = useState<string | undefined>(undefined);
   const [copied, setCopied] = useState("コピー");
 
+  const onPaidySubmit = () => {
+    const setPaidUser = async () =>
+      await setDoc(
+        doc(db, "users", auth.currentUser!.uid),
+        { nextPayDate: null },
+        { merge: true },
+      );
+    setPaidUser();
+  };
   useEffect(() => {
     try {
       onAuthStateChanged(auth, async (user) => {
@@ -39,6 +50,7 @@ export default function Page() {
               data.nextPayDate?.toDate().toLocaleDateString() ?? "停止中",
             );
             setSubscriptionId(data.subscriptionId);
+            setPayMethod(data.paymentType);
             setPaymentId(data.paymentId);
             const st = data.subscriptionStartDate?.toDate();
             if (st) {
@@ -88,14 +100,20 @@ export default function Page() {
           </button>
         </div>
         <form
-          action="https://credit.j-payment.co.jp/link/creditcard/auto-charge/stop"
+          onSubmit={payMethod == "paidy" ? onPaidySubmit : () => {}}
+          action={
+            payMethod == "credit"
+              ? "https://credit.j-payment.co.jp/link/creditcard/auto-charge/stop"
+              : ""
+          }
           method="GET"
         >
           <input type="hidden" name="aid" value="127241" />
           <input type="hidden" name="tid" value={paymentId} />
 
           <div className="flex">
-            退会する場合、以下ボタンからページ遷移後に自動課金番号を入力し進んで下さい。
+            {payMethod == "credit" &&
+              "退会する場合、以下ボタンからページ遷移後に自動課金番号を入力し進んで下さい。"}
           </div>
           <button
             className={`${

@@ -16,14 +16,14 @@ export default function Page() {
         <tbody>
           <tr>
             <th className="border px-4 py-2">メールアドレス</th>
-            <th className="border px-4 py-2">reversekeiba@gmail.com</th>
+            <th className="border px-4 py-2">info@reversekeiba.com</th>
           </tr>
           <tr>
             <th className="border px-4 py-2">販売価格</th>
             <th className="border px-8 py-2">
               <ul className="list-disc">
                 <li>「１ヶ月プラン」 980円（自動更新）</li>
-                <li>「年間プラン」 9800円（自動更新）</li>
+                <li>「年間プラン」 9,800円（自動更新）</li>
               </ul>
             </th>
           </tr>
@@ -52,8 +52,13 @@ export default function Page() {
           </tr>
           <tr>
             <th className="border px-4 py-2">お支払方法</th>
-            <th className="border px-4 py-2">
-              クレジットカード（JCB / American Express / Diners Club）
+            <th className="border px-8 py-2">
+              <ul className="list-disc">
+                <li>
+                  クレジットカード（JCB / American Express / Diners Club）
+                </li>
+                <li>あと払い（ペイディ）</li>
+              </ul>
             </th>
           </tr>
           <tr>

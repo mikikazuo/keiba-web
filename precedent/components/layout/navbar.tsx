@@ -63,7 +63,7 @@ export default function Navbar() {
     <>
       <SignInModal />
       <div className={`fixed z-30 w-full transition-all`}>
-        <div className="mx-3 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
+        <div className="mr-2 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
           {/* {pathname != "/" ? (
             <Link
               href="/"
@@ -91,13 +91,13 @@ export default function Navbar() {
           <div className="flex">
             <Link
               href="/guide"
-              className="mr-2 inline-block rounded-full border border-white bg-black/60 p-1.5 px-3 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+              className="mr-2 inline-block rounded-full border border-white bg-black/60 p-1.5 px-1 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
             >
               逆張り星人とは
             </Link>
             <Link
               href="/price"
-              className="mr-2 inline-block rounded-full border border-white bg-black/60 p-1.5 px-3 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+              className="mr-2 inline-block rounded-full border border-white bg-black/60 p-1.5 px-1 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
             >
               有料プラン登録
             </Link>
@@ -109,7 +109,7 @@ export default function Navbar() {
               </div>
             ) : (
               <button
-                className="rounded-full border border-white bg-black/60 p-1.5 px-3 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
+                className="rounded-full border border-white bg-black/60 p-1.5 px-1 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black"
                 onClick={() => setShowSignInModal(true)}
               >
                 ログイン

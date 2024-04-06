@@ -33,7 +33,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const img = <Image src="/spaceback.png" alt="" width={500} height={500} />;
+  const img = (
+    <Image src="/spaceback.png" priority alt="" width={500} height={500} />
+  );
 
   const sample = (id: string) => (
     <div key={id} id={id} className="h-full w-full">

@@ -30,11 +30,14 @@ export async function GET(request: Request) {
     if (docSnap.data().subscriptionEndDate) {
       if (new Date() > docSnap.data().subscriptionEndDate.toDate())
         return NextResponse.json(
-          { error: "Limit over Error" },
-          { status: 500 },
+          { error: "SubscriptionEndDate over Error" },
+          { status: 200 },
         );
     } else
-      return NextResponse.json({ error: "Limit over Error" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Not subscriptionEndDate" },
+        { status: 200 },
+      );
   } else return NextResponse.json({ error: "Db not exist" }, { status: 500 });
 
   //取得
