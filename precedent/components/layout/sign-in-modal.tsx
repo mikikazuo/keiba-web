@@ -2,7 +2,7 @@
 
 import { Google, LoadingDots } from "@/components/shared/icons";
 import Modal from "@/components/shared/modal";
-import { sendSignInLinkToEmail, signInWithRedirect } from "firebase/auth";
+import { sendSignInLinkToEmail, signInWithPopup } from "firebase/auth";
 import Image from "next/image";
 
 import { auth, provider } from "@/lib/firebaseSDK/firebase-config";
@@ -115,7 +115,9 @@ const SignInModal = ({
                 } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
                 onClick={() => {
                   setSignInClicked(true);
-                  signInWithRedirect(auth, provider);
+                  //signInWithRedirect(auth, provider);  //リダイレクト方式無効
+                  signInWithPopup(auth, provider);
+                  setShowSignInModal(false);
                 }}
               >
                 {signInClicked ? (

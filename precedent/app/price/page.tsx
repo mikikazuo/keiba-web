@@ -8,12 +8,11 @@ import {
 } from "@/lib/firebaseSDK/firebase-config";
 import { addUser } from "@/lib/login/addNewUser";
 import {
-  getRedirectResult,
   isSignInWithEmailLink,
   onAuthStateChanged,
   sendSignInLinkToEmail,
   signInWithEmailLink,
-  signInWithRedirect,
+  signInWithPopup,
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { httpsCallable } from "firebase/functions";
@@ -184,11 +183,12 @@ export default function Page() {
         })
         .catch((error) => setLogined(false));
     } else {
-      getRedirectResult(auth).then(async (userCred) => {
-        /** ログイン後のリダイレクト後に１回だけ呼べる(userCredが空ではなくなる) */
-        if (!userCred) return;
-        addUser(userCred);
-      });
+      // 2024/10/25 ログイン後のリダイレクト後userCredがnullとなっており機能しない
+      // getRedirectResult(auth).then(async (userCred) => {
+      //   /** ログイン後のリダイレクト後に１回だけ呼べる(userCredが空ではなくなる) */
+      //   if (!userCred) return;
+      //   addUser(userCred);
+      // });
       try {
         onAuthStateChanged(auth, async (user) => {
           setLogined(user != null);
@@ -284,7 +284,8 @@ export default function Page() {
                 } flex h-10 w-full max-w-md items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
                 onClick={() => {
                   setSignInClicked(true);
-                  signInWithRedirect(auth, provider);
+                  //signInWithRedirect(auth, provider); //リダイレクト方式無効
+                  signInWithPopup(auth, provider);
                 }}
               >
                 {signInClicked ? (
