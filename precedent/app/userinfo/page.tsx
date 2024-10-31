@@ -3,18 +3,8 @@
 import { auth, db } from "@/lib/firebaseSDK/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import type { Metadata } from "next";
 import { useEffect, useState } from "react";
 
-export const metadata: Metadata = {
-  // 省略
-  robots: {
-    index: false, // noindexの設定
-    googleBot: {
-      index: false,
-    },
-  },
-};
 
 export default function Page() {
   const [start, setStart] = useState<string | undefined>(undefined);

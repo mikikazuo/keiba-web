@@ -27,7 +27,13 @@ const hideCard = (
 
 //isDisplayの状態フラグの変更に伴う再レンダリングは、コンポーネントに引数として渡した場合認識されない
 //フラグ利用は変数を作ったコンポーネント内で行う必要あり
-export default function PremiumCards({ range }: { range: string }) {
+export default function PremiumCards({
+  range,
+  data,
+}: {
+  range: string;
+  data: IAnalysis[];
+}) {
   const [isPremium, setIsPremium] = useState(false);
   const [analysis, setAnalysis] = useState<IAnalysis[] | undefined>(undefined);
   const empytCards = [...new Array(8).keys()];
@@ -40,16 +46,17 @@ export default function PremiumCards({ range }: { range: string }) {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setIsPremium(true);
-        fetch(`/api/analytics?range=${range}`, {
-          headers: {
-            Authorization: `Bearer ${await user.getIdToken(true)}`,
-          },
-          next: { revalidate: 3600 },
-        })
-          .then((res) => res.json())
-          .then((data) =>
-            data.error ? setIsPremium(false) : setAnalysis(data),
-          );
+        // fetch(`/api/analytics?range=${range}`, {
+        //   headers: {
+        //     Authorization: `Bearer ${await user.getIdToken(true)}`,
+        //   },
+        //   next: { revalidate: 3600 },
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) =>
+        //     data.error ? setIsPremium(false) : setAnalysis(data),
+        //   );
+        setAnalysis(data); //2024.10.31 firebase hostingでroute handlersが使えなくなっため支払有無にかかわらず表示 一時的処置
       } else setIsPremium(false);
     });
   }, [auth]);

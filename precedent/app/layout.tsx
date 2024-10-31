@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     creator: "@keibareverse",
     images: ["https://reversekeiba.com/logo.png"],
   },
-  themeColor: "#FFF",
 };
 
 export default async function RootLayout({

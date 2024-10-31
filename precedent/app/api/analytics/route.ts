@@ -13,7 +13,7 @@ customInitApp();
 
 export async function GET(request: Request) {
   //認証
-  const authorization = headers().get("Authorization");
+  const authorization = (await headers()).get("Authorization");
   if (!authorization?.startsWith("Bearer ")) return NextResponse.json({});
   const idToken = authorization.split("Bearer ")[1];
   const decodedToken = await auth().verifyIdToken(idToken);
