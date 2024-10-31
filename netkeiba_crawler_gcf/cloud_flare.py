@@ -1,15 +1,12 @@
 import json
+import os
 
 import requests
 
 
 def purge_cache():
-    CLOUDFLARE_GLOBAL_API_KEY = 'ea3215defb40a7a096f57b8e283e66a88f66a'
-    CLOUDFLARE_ACCOUNT_EMAIL = 'ers7m3b@gmail.com'
-
     headers = {
-        'X-Auth-Key': CLOUDFLARE_GLOBAL_API_KEY,
-        'X-Auth-Email': CLOUDFLARE_ACCOUNT_EMAIL,
+        'Authorization': 'Bearer ' + os.environ.get("CLOUDFLARE_TOKEN"),
         'Content-Type': 'application/json'
     }
 

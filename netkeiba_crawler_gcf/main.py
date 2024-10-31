@@ -3,10 +3,12 @@
 is_deployフラグをTrueにすること
 --allow-unauthenticated --ingress-settingsオプションで同プロジェクト内のスケジューラ―から呼び出せるようにした
 
-gcloud functions deploy netkeiba-crawl --gen2 --runtime=python311 --region=asia-northeast1 --source=. --entry-point=hello_http --trigger-http --allow-unauthenticated --ingress-settings=internal-only --memory=1GiB --timeout=3600
+gcloud functions deploy netkeiba-crawl --gen2 --runtime=python311 --region=asia-northeast1 --source=. --entry-point=hello_http --trigger-http --allow-unauthenticated --ingress-settings=internal-only --memory=1GiB --timeout=3600 --env-vars-file .env.yaml
 
-空のrequiments.txt用意してpycharm上部に表示されるバナーから自動追加する
-もしくは pipreqs --encoding UTF8 . コマンドを使う
+[requirements.txtの作成]　以下のどれか
+・空のrequiments.txt用意してpycharm上部に表示されるバナーから自動追加する
+・pip freeze > requirements.txt　コマンドののちrequirements.txtの「pywin32」の行を削除（推奨　次のようなエラーが出る場合「 OperationError: code=3, message=Could not create or update Cloud Run service」）
+・pipreqs --encoding UTF8 . コマンドを使う（参考：https://jitaku.work/it/language/python/pipreqs/）
 
 google-cloud-bigquery~=3.11.4
 functions-framework==3.*
@@ -141,39 +143,3 @@ if is_deploy:
 else:
     main()
     purge_cache()
-
-""" TODO 自動ツイート
-import tweepy
-
-# API情報を記入
-BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAIPIpAEAAAAAQqFOZVOF2f%2FtWj9UURnmub82xKo%3D54jN4iZtlJIU4cPLdjBcy4I5Gq9HN0U1Bwq33vFPAZAkO4JlDw"
-API_KEY = "PlULA9huVUk7cl0SjkB8atEPl"
-API_SECRET = "wh9UpbYi557Fc2zBR4dHITGnKcrbJWIRF0aWkAUle9wnS44vSZ"
-ACCESS_TOKEN = "1682942311934881793-fHMXA4lJNaEgEzNBlN8oSS8NvjzWoS"
-ACCESS_TOKEN_SECRET = "TboliXwD0G6XMUJ86oK2F4BIZvpTIJigaNi3KBf9NMHN3"
-
-
-# クライアント関数を作成
-def ClientInfo():
-    client = tweepy.Client(bearer_token=BEARER_TOKEN,
-                           consumer_key=API_KEY,
-                           consumer_secret=API_SECRET,
-                           access_token=ACCESS_TOKEN,
-                           access_token_secret=ACCESS_TOKEN_SECRET,
-                           )
-
-    return client
-
-# ガター内の緑色のボタンを押すとスクリプトを実行します。
-if __name__ == '__main__':
-    # オブジェクト作成
-    client = tweepy.Client(
-        consumer_key=API_KEY ,
-        consumer_secret=API_SECRET,
-        access_token=ACCESS_TOKEN,
-        access_token_secret=ACCESS_TOKEN_SECRET
-    )
-
-    # ツイートする
-    client.create_tweet(text='テスト')
-"""
