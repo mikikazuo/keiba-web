@@ -12,20 +12,14 @@ export default async function Home() {
   const _updateDate = getUpdateDate("week");
   const _analysisWeek = getAnalysis("week");
 
-  const _analysisMonth = getAnalysis("month");
-
-  const _analysisThreeMonth = getAnalysis("three_month");
   //サーバーコンポーネント側でクッキーの呼び出しは不可(emulatorでは取得できたが、デプロイ後は不可)
   //できると示唆するサイトもあるが、firebase上だと相性が悪い？
   // const cookieStore = cookies();
 
-  const [updateDate, analysisWeek, analysisMonth, analysisThreeMonth] =
-    await Promise.all([
-      _updateDate,
-      _analysisWeek,
-      _analysisMonth,
-      _analysisThreeMonth,
-    ]);
+  const [updateDate, analysisWeek] = await Promise.all([
+    _updateDate,
+    _analysisWeek,
+  ]);
   return (
     <>
       <div className="z-10 mt-5 w-full max-w-xl">
@@ -111,7 +105,7 @@ export default async function Home() {
       >
         直近 １ヶ月
       </h2>
-      <PremiumCards range="month" data={analysisMonth} />
+      <PremiumCards range="month" />
       <div className="mb-14" id="three-month"></div>
       <h2
         className="range-title gas xe animate-fade-up text-center text-2xl font-bold"
@@ -119,7 +113,7 @@ export default async function Home() {
       >
         直近 ３ヶ月
       </h2>
-      <PremiumCards range="three_month" data={analysisThreeMonth} />
+      <PremiumCards range="three_month" />
       <Image
         className="mx-auto mt-10"
         src="/favicons/android-chrome-192x192.png"

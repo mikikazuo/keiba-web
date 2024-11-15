@@ -3,6 +3,7 @@ import { cert, getApps, initializeApp } from "firebase-admin/app";
 /**
  * firebase admin設定　参考 https://kiyobl.com/firebase-admin/
  * FIREBASE_ は reserved prefixなためFB_にした 参考 https://zenn.dev/nbstsh/scraps/c6f51aeff03cea#comment-6ff850073560e2
+ * .env.localがfirebase hostingでは認識されないためデプロイする場合にのみ以下を直接代入へ変更すること
  */
 const firebaseAdminConfig = {
   credential: cert({

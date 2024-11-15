@@ -10,10 +10,9 @@ const { BigQuery } = require("@google-cloud/bigquery");
 // 関数外でも、このファイルに記載したAPIを呼び出す時に毎回呼ばれる
 // Init the Firebase SDK every time the server is called
 customInitApp();
-
 export async function GET(request: Request) {
   //認証
-  const authorization = (await headers()).get("Authorization");
+  const authorization = headers().get("Authorization");
   if (!authorization?.startsWith("Bearer ")) return NextResponse.json({});
   const idToken = authorization.split("Bearer ")[1];
   const decodedToken = await auth().verifyIdToken(idToken);
@@ -28,11 +27,12 @@ export async function GET(request: Request) {
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     if (docSnap.data().subscriptionEndDate) {
-      if (new Date() > docSnap.data().subscriptionEndDate.toDate())
+      if (new Date() > docSnap.data().subscriptionEndDate.toDate()) {
         return NextResponse.json(
           { error: "SubscriptionEndDate over Error" },
           { status: 200 },
         );
+      }
     } else
       return NextResponse.json(
         { error: "Not subscriptionEndDate" },
@@ -43,7 +43,6 @@ export async function GET(request: Request) {
   //取得
   const { searchParams } = new URL(request.url);
   const tableId = searchParams.get("range");
-
   const bigqueryClient = new BigQuery().dataset("analysis");
   const sqlQuery = `SELECT * FROM \`${tableId}\``;
   const options = {
