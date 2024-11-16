@@ -1,5 +1,5 @@
 # keiba-web
-##Firebase Hostingデプロイ時
+## Firebase Hostingデプロイ時
 .env.localを参考にfirebase-admin-config.tsxへ一時的に直接代入するよう書き換えること
 
 
