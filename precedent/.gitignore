@@ -27,7 +27,6 @@ yarn-error.log*
 
 # local env files
 .env*.local
-.env.local
 # .env
 
 # vercel
@@ -43,7 +42,6 @@ next-env.d.ts
 *-firebase-adminsdk-*.json
 
 **/.firebase
-**/.firebaserc
 **/firebase-debug.log
 
 .idea/**/workspace.xml
