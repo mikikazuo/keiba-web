@@ -88,3 +88,38 @@ https://user-images.githubusercontent.com/28986134/212368288-12f41e37-aa8c-4e0a-
 ## Author
 
 - Steven Tey ([@steventey](https://twitter.com/steventey))
+
+## ローカル認証（開発用）
+
+ローカルでアプリを実行する場合、サーバー側の機能（`firebase-admin` や BigQuery など）を動作させるために Google/Firebase の認証情報が必要です。以下いずれかの方法で認証情報を提供してください。
+
+- サービスアカウント JSON をローカルに置く（推奨）
+  - GCP / Firebase コンソールでサービスアカウントを作成し、JSON キーファイルをダウンロードします。
+  - このリポジトリで使われている例のファイル名: `keiba-web-forgcf-firebase-adminsdk-mgwht-fa25bfcf25.json`
+  - 環境変数 `GOOGLE_APPLICATION_CREDENTIALS` に JSON ファイルのフルパスを設定すると、Google のライブラリがそのファイルを自動的に参照します。PowerShell（セッションのみ）での例:
+
+```powershell
+$env:GOOGLE_APPLICATION_CREDENTIALS = 'C:\Users\boost\Documents\PrivateSourceTree\keiba-web\precedent\keiba-web-forgcf-firebase-adminsdk-mgwht-fa25bfcf25.json'
+npm run dev
+```
+
+- 環境変数（`.env.local`）で個別に設定する方法
+  - プロジェクトルートに `.env.local`（または `.env`）を作り、以下のように設定します。`FB_PRIVATE_KEY` の改行は `\n`（リテラルのバックスラッシュ＋n）で表現してください。
+
+```env
+FB_PROJECT_ID="your-firebase-project-id"
+FB_CLIENT_EMAIL="your-firebase-admin-client-email"
+# private key の改行は \n を使用
+FB_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+
+# 任意（analytics API 等で BigQuery を使う場合）
+GC_PROJECT_ID="your-gcp-project-id"
+GC_CLIENT_EMAIL="your-bigquery-service-account@your-project.iam.gserviceaccount.com"
+GC_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+```
+
+注意事項（重要）:
+- サービスアカウント JSON や実際の `.env.local` の値は絶対にリポジトリにコミットしないでください。すでにこのリポジトリの `.gitignore` には `*-firebase-adminsdk-*.json` や `.env*.local` が含まれていますが、念のためコミット前に確認してください。
+- もし誤って鍵を公開してしまった場合は、すぐに GCP コンソールでその鍵を無効化（revoke）し、新しい鍵を発行してください。
+
+上記のいずれかで認証情報を供給すれば、`npm run dev` 実行時にサーバー側のライブラリ（`firebase-admin` や `@google-cloud/*`）が正しく認証情報を読み取れるようになります。
