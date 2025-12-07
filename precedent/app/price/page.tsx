@@ -50,8 +50,8 @@ export default function Page() {
   const [sendEmail, setSendEmail] = useState(false);
   type RangeType = undefined | 1 | 12;
   const [payMonthRange, setPayRange] = useState<RangeType>(undefined);
-  type MethodType = undefined | "credit" | "paidy";
-  const [payMethod, setPayMethod] = useState<MethodType>(undefined);
+  type MethodType = "paidy";
+  const [payMethod, setPayMethod] = useState<MethodType>("paidy");
   /** nullは未ログイン、undefinedはログインかどうか確認中 */
   const [logined, setLogined] = useState<boolean | undefined>(undefined);
   const [eMail, setEMail] = useState("");
@@ -119,11 +119,7 @@ export default function Page() {
   });
 
   /** 必要な選択項目を選択したかどうか */
-  const isNotPayable =
-    logined != true ||
-    payMonthRange == undefined ||
-    payMethod == undefined ||
-    isPaid != false;
+  const isNotPayable = logined != true || payMonthRange == undefined || isPaid != false;
 
   type FormData = {
     email: string;
@@ -414,67 +410,19 @@ export default function Page() {
           ３．支払方法
         </h2>
         <div className="my-5 ml-4 text-white">支払方法を選択してください。</div>
-        <div className="flex justify-around text-white">
-          <button
-            className={`${
-              payMethod == "credit" ? "bg-white text-black" : "bg-black"
-            } relative w-44 rounded-lg border border-gray-200 bg-black py-6 shadow transition-all hover:bg-white hover:text-black`}
-            onClick={() => setPayMethod("credit")}
-          >
-            <h5 className="mb-5 text-lg font-bold">クレジットカード</h5>
-            <div className="mx-auto flex w-40 justify-around">
-              {/* flex内では他の画像サイズによって比率が帰られてしまうためclassでピクセル指定を追加で行った */}
-              <Image
-                src="/jcb-logo.gif"
-                alt="JCBLogo"
-                className="h-[38.8px] w-[50.5px]"
-                width={50.5}
-                height={38.8}
-              />
-              <Image
-                src="/amex-logo.png"
-                alt="amexLogo"
-                className="h-[40px] w-[40px]"
-                width={40}
-                height={40}
-              />
-              <Image
-                src="/diners-logo.gif"
-                alt="dinersLogo"
-                className="h-[40px] w-[54px]"
-                width={54}
-                height={40}
-              />
-            </div>
-          </button>
-          <button
-            className={`${
-              payMethod == "paidy" ? "bg-white text-black" : "bg-black"
-            } group relative w-44 rounded-lg border border-gray-200 bg-black shadow transition-all  hover:bg-white hover:text-black`}
-            onClick={() => setPayMethod("paidy")}
-          >
+        <div className="flex justify-center text-black">
+          <div className="w-56 rounded-lg border border-gray-200 bg-white shadow">
             <h5 className="my-3 ml-3 font-bold">あと払い（ペイディ）</h5>
-            <div className="mx-auto flex justify-around">
+            <div className="mx-auto flex justify-center py-2">
               <Image
-                className={`h-auto w-36 group-hover:visible ${
-                  payMethod == "paidy" ? "visible" : "invisible"
-                }`}
+                className="h-auto w-40"
                 src="/paidy-logo-light.png"
                 alt="paidyLogo"
-                width={130}
-                height={0}
-              />
-              <Image
-                className={`absolute h-auto w-36 group-hover:invisible ${
-                  payMethod == "paidy" ? "invisible" : "visible"
-                }`}
-                src="/paidy-logo-dark.png"
-                alt="paidyLogo"
-                width={130}
+                width={140}
                 height={0}
               />
             </div>
-          </button>
+          </div>
         </div>
         <div className="mr-6 mt-5 text-right">
           ※「ペイディ」については
@@ -489,15 +437,7 @@ export default function Page() {
         </div>
 
         {/* paidyでローカルでテストする際はコントロールパネルの設定を変更するように */}
-        <form
-          onSubmit={payMethod == "paidy" ? onPaidySubmit : () => {}}
-          action={
-            payMethod == "credit"
-              ? "https://credit.j-payment.co.jp/link/creditcard"
-              : ""
-          }
-          method="POST"
-        >
+        <form onSubmit={onPaidySubmit} method="POST">
           {/* robot paymentテスト決済時にエラーが出る場合は過去の決済を消して上限？を回復させるように */}
           <input type="hidden" name="aid" value="127241" />
           <input

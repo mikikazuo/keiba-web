@@ -3,6 +3,8 @@
   (https://www.fontspace.com/neon-glow-font-f14014) 
 */
 
+@use 'sass:math';
+
 #gasses {
   display: flex;
   flex-wrap: wrap;
@@ -171,7 +173,7 @@
     &:nth-child(#{$i}) {
       animation:
         clip 3000ms $i * -590ms linear infinite,
-        glitch#{$i} 500ms random(1000) * -1ms linear infinite;
+        glitch#{$i} 500ms math.random(1000) * -1ms linear infinite;
 
       @keyframes glitch#{$i} {
         // 0% {
@@ -186,7 +188,7 @@
         //   // color: #4E9A26;
         // }
         90% {
-          transform: translateX(random(10) - 5px);
+          transform: translateX(math.random(10) - 5px);
           // color: #AC1212;
         }
         // 95% {

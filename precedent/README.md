@@ -103,6 +103,15 @@ $env:GOOGLE_APPLICATION_CREDENTIALS = 'C:\Users\boost\Documents\PrivateSourceTre
 npm run dev
 ```
 
+### ⚠️ 重要: デプロイ時の注意（Internal Server Error の回避）
+
+`.env` ファイルには `GOOGLE_APPLICATION_CREDENTIALS` を**記述しないでください**。
+もし `.env` にローカルPC上のファイルパス（例: `C:\Users\...`）を記述すると、Firebase Hosting (Cloud Functions) へのデプロイ後もそのパスを参照しようとしてしまい、ファイルが見つからずに **Internal Server Error** が発生します。
+
+ローカル開発で `GOOGLE_APPLICATION_CREDENTIALS` を `.env` ファイル経由で設定したい場合は、必ず **`.env.local`** を使用してください。`.env.local` はデプロイパッケージに含まれないため、本番環境への悪影響を防げます。
+
+本番環境（Cloud Functions）では、自動的に割り当てられるサービスアカウント（Application Default Credentials）が使用されるため、追加の設定は不要です。
+
 - 環境変数（`.env.local`）で個別に設定する方法
   - プロジェクトルートに `.env.local`（または `.env`）を作り、以下のように設定します。`FB_PRIVATE_KEY` の改行は `\n`（リテラルのバックスラッシュ＋n）で表現してください。
 

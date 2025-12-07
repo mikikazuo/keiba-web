@@ -14,7 +14,7 @@ export default function Page() {
   const [subscriptionId, setSubscriptionId] = useState<string | undefined>(
     undefined,
   );
-  type MethodType = undefined | "credit" | "paidy";
+  type MethodType = "paidy" | undefined;
   const [payMethod, setPayMethod] = useState<MethodType>(undefined);
   const [paymentId, setPaymentId] = useState<string | undefined>(undefined);
   const [copied, setCopied] = useState("コピー");
@@ -89,22 +89,10 @@ export default function Page() {
             <h5 className="text-xs font-bold">{copied}</h5>
           </button>
         </div>
-        <form
-          onSubmit={payMethod == "paidy" ? onPaidySubmit : () => {}}
-          action={
-            payMethod == "credit"
-              ? "https://credit.j-payment.co.jp/link/creditcard/auto-charge/stop"
-              : ""
-          }
-          method="GET"
-        >
+        <form onSubmit={onPaidySubmit} method="GET">
           <input type="hidden" name="aid" value="127241" />
           <input type="hidden" name="tid" value={paymentId} />
 
-          <div className="flex">
-            {payMethod == "credit" &&
-              "退会する場合、以下ボタンからページ遷移後に自動課金番号を入力し進んで下さい。"}
-          </div>
           <button
             className={`${
               nextPayDate == "停止中" || nextPayDate == undefined

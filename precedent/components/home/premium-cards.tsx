@@ -1,5 +1,6 @@
 "use client";
 
+import { getAnalyticsAction } from "@/app/actions/getAnalytics";
 import { auth } from "@/lib/firebaseSDK/firebase-config";
 import { IAnalysis } from "@/lib/getDb/analysis";
 import { onAuthStateChanged } from "firebase/auth";
@@ -41,17 +42,20 @@ export default function PremiumCards({ range }: { range: string }) {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setIsPremium(true);
-        fetch(`/api/analytics?range=${range}`, {
-          headers: {
-            Authorization: `Bearer ${await user.getIdToken(false)}`,
-          },
-          next: { revalidate: 3600 },
-        })
-          .then((res) => res.json())
-          .then((data) =>
-            data.error ? setIsPremium(false) : setAnalysis(data),
-          )
-          .catch((error) => console.error("Fetch error:", error));
+        try {
+          const idToken = await user.getIdToken(false);
+          const result = await getAnalyticsAction(idToken, range);
+
+          if (result.error) {
+            setIsPremium(false);
+            console.error("Fetch error:", result.error, result.details);
+          } else if (result.data) {
+            setAnalysis(result.data);
+          }
+        } catch (error) {
+          console.error("Fetch error:", error);
+          setIsPremium(false);
+        }
       } else setIsPremium(false);
     });
   }, []);

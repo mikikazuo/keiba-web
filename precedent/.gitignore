@@ -40,6 +40,7 @@ next-env.d.ts
 .vscode
 
 *-firebase-adminsdk-*.json
+keiba-web-*.json
 
 **/.firebase
 **/firebase-debug.log

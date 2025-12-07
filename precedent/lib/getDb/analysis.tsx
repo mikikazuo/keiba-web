@@ -2,6 +2,9 @@ const { BigQuery } = require("@google-cloud/bigquery");
 import { cache } from "react";
 
 export const getUpdateDate = cache(async (tableId: string) => {
+  // BigQueryの認証は、ローカルではGOOGLE_APPLICATION_CREDENTIALS（.env.local等で指定）、
+  // 本番環境(Cloud Functions)ではApplication Default Credentials(ADC)が自動的に使用されます。
+  // 注意: .envにGOOGLE_APPLICATION_CREDENTIALS(ローカルパス)を書くと、本番でもそれを参照してエラーになるため記述しないこと。
   const bigqueryClient = new BigQuery().dataset("analysis");
   const sqlQuery = `SELECT
   FORMAT_TIMESTAMP('%m月%d日%H時', TIMESTAMP_MILLIS(last_modified_time), 'Asia/Tokyo')

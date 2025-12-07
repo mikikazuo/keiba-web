@@ -54,9 +54,6 @@ export default function Page() {
             <th className="border px-4 py-2">お支払方法</th>
             <th className="border px-8 py-2">
               <ul className="list-disc">
-                <li>
-                  クレジットカード（JCB / American Express / Diners Club）
-                </li>
                 <li>あと払い（ペイディ）</li>
               </ul>
             </th>
