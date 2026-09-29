@@ -115,9 +115,9 @@ def main(is_retry=False, is_reset=False):
     is_diversion = len(cnt_df) > 0
 
     # analysisテーブルのリセット＆全期間のクロールし直し(引数指定オプション)
-    if is_reset and is_diversion:
-        idx = int(cnt_df.iloc[0])
-        for i in range(idx - past_week_max, idx + 2):  # 最新週のスクレイピングが失敗した場合も考慮して+2
+    if is_reset:
+        idx = int(cnt_df.iloc[0]) if is_diversion else past_week_max
+        for i in range(max(0, idx - past_week_max), idx + 2):  # 最新週のスクレイピングが失敗した場合も考慮して+2
             bq.client.delete_dataset(f"{bq.client.project}.week{str(i).zfill(4)}", delete_contents=True,
                                      not_found_ok=True)
         bq.client.delete_dataset(bq.dataset_id, delete_contents=True, not_found_ok=True)

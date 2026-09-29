@@ -1,3 +1,4 @@
+import re
 import pandas as pd
 from google.api_core.exceptions import NotFound
 from google.cloud import bigquery
@@ -35,7 +36,14 @@ class Analysis:
             label_dict = self.bq.client.get_table(f'{dataset_id}.{table.table_id}').labels
             # テーブルのラベル情報追加
             for key in self.label_key:
-                part_df[key] = label_dict[key].replace('-', 'ー')  # TODO ラベルで全角ハイフンが使えないため置換対応　googleが対応するまでの一時的措置
+                # dateラベルは "2026-09-28" 形式のまま保持。その他キーは全角ハイフンに戻す
+                if key == 'date':
+                    part_df[key] = label_dict[key]  # "2026-09-28" 形式のまま保持
+                elif key == 'round':
+                    # 数字のみを抽出（例: "8", "8r", "8R", "race-8" -> "8"）サイト表示側で "R" を付けるため
+                    part_df[key] = re.sub(r'\D', '', str(label_dict[key]))
+                else:
+                    part_df[key] = label_dict[key].replace('-', 'ー')  # TODO ラベルで全角ハイフンが使えないため置換対応　googleが対応するまでの一時的措置
             part_df_list.append(part_df)
             # ユニークな馬券種と着馬数
             buy_type_df_list.append(
@@ -58,7 +66,11 @@ class Analysis:
             [self.sum_df, pd.concat(part_df_list)])
         self.buy_type_df = pd.concat(buy_type_df_list) if self.buy_type_df is None else pd.concat(
             [self.buy_type_df, pd.concat(buy_type_df_list)])
-        formed_datetime = pd.to_datetime(self.sum_df.date, format='%Y年%m月%d日')
+        # dateラベル形式: "2026年7月12日" （年月日形式、ハイフン形式両対応）
+        try:
+            formed_datetime = pd.to_datetime(self.sum_df.date, format='%Y年%m月%d日')
+        except ValueError:
+            formed_datetime = pd.to_datetime(self.sum_df.date, format='%Y-%m-%d')
         print(
             f'データセット:{dataset_id}  範囲期間: {min(formed_datetime).date().strftime("%Y年%m月%d日")}～{max(formed_datetime).date().strftime("%Y年%m月%d日")}')
 
